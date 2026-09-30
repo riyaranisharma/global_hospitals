@@ -1,0 +1,196 @@
+<div class="registration-page">
+
+  <!-- NAVBAR -->
+  <nav class="hospital-navbar">
+
+    <div class="hospital-logo">
+      <span class="logo-icon">♟</span>
+      <span> PARAS HOSPITAL</span>
+    </div>
+
+    <div class="nav-links">
+      <%= link_to "HOME", root_path %>
+
+      <%= link_to "ABOUT US", about_path %>
+
+      <%= link_to "CONTACT", contact_path %>
+    </div>
+
+  </nav>
+
+
+  <!-- MAIN AREA -->
+  <div class="registration-wrapper">
+
+    <!-- LEFT PURPLE SECTION -->
+    <div class="welcome-section">
+
+      <div class="welcome-content">
+        <div class="rocket-icon">🚀</div>
+        <h2>Welcome</h2>
+      </div>
+
+    </div>
+
+
+    <!-- RIGHT FORM SECTION -->
+    <div class="registration-card">
+
+      <div class="registration-content">
+
+        <h1>Register as Patient</h1>
+
+
+        <!-- ERROR MESSAGES -->
+        <% if @user.errors.any? %>
+          <div class="error-messages">
+
+            <% @user.errors.full_messages.each do |message| %>
+              <p><%= message %></p>
+            <% end %>
+
+          </div>
+        <% end %>
+
+
+        <!-- ROLE TABS -->
+        <div class="role-tabs">
+              <%= link_to "Patient",
+              login_path,
+              class: "role-tab active" %>
+
+             <%= link_to "Doctor",
+             doctor_login_path,
+             class: "role-tab" %>
+
+            <%= link_to "Admin",
+            admin_login_path,
+           class: "role-tab" %>
+
+        </div>
+
+
+        <!-- REGISTRATION FORM -->
+        <%= form_with model: @user,
+                      url: register_path,
+                      method: :post,
+                      local: true do |form| %>
+
+
+          <!-- FIRST ROW -->
+          <div class="form-row">
+
+            <div class="form-group">
+
+              <%= form.text_field :first_name,
+                    placeholder: "First Name",
+                    required: true %>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <%= form.text_field :last_name,
+                    placeholder: "Last Name",
+                    required: true %>
+
+            </div>
+
+          </div>
+
+
+          <!-- SECOND ROW -->
+          <div class="form-row">
+
+            <div class="form-group">
+
+              <%= form.email_field :email,
+                    placeholder: "Email",
+                    required: true %>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <%= form.telephone_field :phone,
+                    placeholder: "Phone Number",
+                    required: true %>
+
+            </div>
+
+          </div>
+
+
+          <!-- THIRD ROW -->
+          <div class="form-row">
+
+            <div class="form-group">
+
+              <%= form.password_field :password,
+                    placeholder: "Password",
+                    required: true %>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <%= form.password_field :password_confirmation,
+                    placeholder: "Confirm Password",
+                    required: true %>
+
+            </div>
+
+          </div>
+
+
+          <!-- GENDER -->
+          <div class="gender-row">
+
+            <label>
+              <%= form.radio_button :gender,
+                    "male",
+                    required: true %>
+              Male
+            </label>
+
+
+            <label>
+              <%= form.radio_button :gender, "female" %>
+              Female
+            </label>
+
+          </div>
+
+
+
+          <!-- LOGIN + REGISTER ACTIONS -->
+          <div class="form-actions">
+
+            <!-- ALREADY HAVE ACCOUNT -->
+            <div class="login-link">
+              <%= link_to "Already have an account?",
+                  login_path(role: @role || "patient") %>
+            </div>
+
+
+            <!-- REGISTER BUTTON -->
+            <div class="register-action">
+              <%= form.submit "Register",
+                    class: "register-btn" %>
+            </div>
+
+          </div>
+
+
+        <% end %>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

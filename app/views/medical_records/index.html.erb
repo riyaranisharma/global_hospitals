@@ -1,0 +1,217 @@
+<%= stylesheet_link_tag "medical_records", "data-turbo-track": "reload" %>
+<div class="patient-dashboard">
+
+  <%= render "shared/patient_sidebar" %>
+
+  <main class="dashboard-main">
+<div class="medical-records-page">
+
+  <!-- ==============================
+       PAGE HEADER
+  =============================== -->
+
+  <div class="medical-records-header">
+
+    <div class="page-header-content">
+      <h1>Medical Reports</h1>
+
+      <p>
+        View and manage your medical test and diagnostic reports
+      </p>
+    </div>
+
+
+    <!-- PATIENT + UPLOAD -->
+
+    <div class="header-right">
+
+      <div class="patient-header">
+
+        <div class="patient-avatar">
+          <%= @patient.first_name.to_s.first&.upcase || "P" %>
+        </div>
+
+        <div class="patient-header-info">
+
+          <strong>
+            <%= "#{@patient.first_name} #{@patient.last_name}" %>
+          </strong>
+
+          <span>Patient</span>
+
+        </div>
+
+      </div>
+
+
+      <%= link_to new_medical_record_path,
+          class: "upload-report-btn" do %>
+
+        <span>＋</span>
+        Upload Report
+
+      <% end %>
+
+    </div>
+
+  </div>
+
+
+  <!-- ==============================
+       REPORTS SECTION
+  =============================== -->
+
+  <div class="reports-section">
+
+    <div class="reports-section-header">
+
+      <div>
+
+        <h2>My Medical Reports</h2>
+
+        <p>
+          All your medical test and diagnostic reports
+        </p>
+
+      </div>
+
+
+      <div class="report-count">
+
+        <strong>
+          <%= @medical_reports.count %>
+        </strong>
+
+        <span>Reports</span>
+
+      </div>
+
+    </div>
+
+
+    <!-- ==============================
+         REPORT LIST
+    =============================== -->
+
+    <% if @medical_reports.any? %>
+
+      <div class="medical-reports-list">
+
+        <% @medical_reports.each do |report| %>
+
+          <div class="medical-report-item">
+
+
+            <!-- REPORT ICON -->
+
+            <div class="report-icon">
+              📋
+            </div>
+
+
+            <!-- REPORT DETAILS -->
+
+            <div class="report-details">
+
+              <h3>
+                <%= report.report_type.presence || "Medical Report" %>
+              </h3>
+
+              <p>
+                <%= report.department.presence || "General Department" %>
+              </p>
+
+
+              <div class="report-meta">
+
+                <span>
+                  📅
+                  <%= report.report_date&.strftime("%d %b %Y") ||
+                      "Date not available" %>
+                </span>
+
+
+                <span>
+                  🧪
+                  <%= report.sample_type.presence ||
+                      "Diagnostic Test" %>
+                </span>
+
+
+                <% if report.report_code.present? %>
+
+                  <span>
+                    # <%= report.report_code %>
+                  </span>
+
+                <% end %>
+
+              </div>
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div class="report-status">
+
+              <span class="status-badge">
+                <%= report.status.presence || "Completed" %>
+              </span>
+
+            </div>
+
+
+            <!-- VIEW REPORT -->
+
+            <div class="report-action">
+
+              <%= link_to "View Report →",
+                  medical_record_path(report),
+                  class: "view-report-btn" %>
+
+            </div>
+
+          </div>
+
+        <% end %>
+
+      </div>
+
+
+    <!-- ==============================
+         EMPTY STATE
+    =============================== -->
+
+    <% else %>
+
+      <div class="empty-reports">
+
+        <div class="empty-report-icon">
+          📋
+        </div>
+
+        <h3>
+          No Medical Reports Found
+        </h3>
+
+        <p>
+          Your medical test and diagnostic reports will appear here
+          when they are available.
+        </p>
+
+
+        <%= link_to new_medical_record_path,
+            class: "empty-upload-btn" do %>
+
+          ＋ Upload Your First Report
+
+        <% end %>
+
+      </div>
+
+    <% end %>
+
+  </div>
+
+</div>

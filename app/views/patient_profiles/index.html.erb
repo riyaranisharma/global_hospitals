@@ -1,0 +1,415 @@
+<div class="patient-dashboard">
+
+  <%= render "shared/patient_sidebar" %>
+
+  <main class="dashboard-main">
+<div class="profile-top-bar">
+  <%= link_to patient_dashboard_path, class: "back-dashboard-btn" do %>
+    ← Back to Dashboard
+  <% end %>
+</div>
+<div class="patient-profile-page">
+
+  <!-- PAGE HEADER -->
+  <div class="profile-page-header">
+
+    <div>
+      <h1>Patient Profile</h1>
+      <p>View and manage your personal information</p>
+
+
+    </div>
+
+
+    <%= link_to edit_patient_profile_path,
+        class: "edit-profile-btn" do %>
+      ✏️ Edit Profile
+    <% end %>
+
+  </div>
+
+
+  <!-- PROFILE SUMMARY -->
+  <div class="profile-summary-card">
+
+    <div class="profile-avatar">
+      <%= @patient.first_name.first.upcase %>
+    </div>
+
+    <div class="profile-main-info">
+
+      <div class="profile-name-row">
+        <h2>
+          <%= @patient.first_name %>
+          <%= @patient.last_name %>
+        </h2>
+
+        <span class="active-badge">
+          Active Patient
+        </span>
+      </div>
+
+      <p class="patient-id">
+        Patient ID: #<%= @patient.id %>
+      </p>
+
+      <div class="profile-contact-row">
+
+        <span>
+          ✉️ <%= @patient.email %>
+        </span>
+
+        <span>
+          📞 <%= @patient.phone %>
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="profile-summary-item">
+
+      <div class="summary-icon">
+        📅
+      </div>
+
+      <div>
+        <small>Date of Birth</small>
+
+        <strong>
+          <%= @patient.date_of_birth&.strftime("%d %b %Y") || "Not Added" %>
+        </strong>
+
+        <% if @patient.date_of_birth.present? %>
+          <span>
+            Age:
+            <%= ((Date.current - @patient.date_of_birth).to_i / 365.25).floor %>
+            Years
+          </span>
+        <% end %>
+      </div>
+
+    </div>
+
+
+    <div class="profile-summary-item">
+
+      <div class="summary-icon">
+        ⚥
+      </div>
+
+      <div>
+        <small>Gender</small>
+
+        <strong>
+          <%= @patient.gender.present? ? @patient.gender.titleize : "Not Added" %>
+        </strong>
+      </div>
+
+    </div>
+
+
+    <div class="profile-summary-item">
+
+      <div class="summary-icon blood-icon">
+        🩸
+      </div>
+
+      <div>
+        <small>Blood Group</small>
+
+        <strong>
+          <%= @patient.blood_group.presence || "Not Added" %>
+        </strong>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- PROFILE GRID -->
+  <div class="profile-grid">
+
+
+    <!-- PERSONAL INFORMATION -->
+    <div class="profile-card">
+
+      <div class="card-title">
+        <span>👤</span>
+        <h3>Personal Information</h3>
+      </div>
+
+      <div class="info-row">
+        <span>Full Name</span>
+        <strong>
+          <%= @patient.first_name %>
+          <%= @patient.last_name %>
+        </strong>
+      </div>
+
+      <div class="info-row">
+        <span>Date of Birth</span>
+        <strong>
+          <%= @patient.date_of_birth&.strftime("%d %b %Y") || "Not Added" %>
+        </strong>
+      </div>
+
+      <div class="info-row">
+        <span>Gender</span>
+        <strong>
+          <%= @patient.gender.present? ? @patient.gender.titleize : "Not Added" %>
+        </strong>
+      </div>
+
+      <div class="info-row">
+        <span>Blood Group</span>
+        <strong>
+          <%= @patient.blood_group.presence || "Not Added" %>
+        </strong>
+      </div>
+
+      <div class="info-row">
+        <span>Marital Status</span>
+        <strong>
+          <%= @patient.marital_status.presence || "Not Added" %>
+        </strong>
+      </div>
+
+      <div class="info-row">
+        <span>Nationality</span>
+        <strong>
+          <%= @patient.nationality.presence || "Not Added" %>
+        </strong>
+      </div>
+
+      <div class="info-row">
+        <span>Preferred Language</span>
+        <strong>
+          <%= @patient.preferred_language.presence || "Not Added" %>
+        </strong>
+      </div>
+
+    </div>
+
+
+    <!-- CONTACT INFORMATION -->
+    <div class="profile-card">
+
+      <div class="card-title">
+        <span>📞</span>
+        <h3>Contact Information</h3>
+      </div>
+
+      <div class="info-row">
+        <span>Email Address</span>
+        <strong><%= @patient.email %></strong>
+      </div>
+
+      <div class="info-row">
+        <span>Phone Number</span>
+        <strong><%= @patient.phone %></strong>
+      </div>
+
+      <div class="info-row">
+        <span>Alternate Phone</span>
+        <strong>
+          <%= @patient.alternate_phone.presence || "Not Added" %>
+        </strong>
+      </div>
+
+      <div class="info-row">
+        <span>Address</span>
+        <strong>
+          <%= @patient.address.presence || "Not Added" %>
+        </strong>
+      </div>
+
+      <div class="info-row">
+        <span>City</span>
+        <strong>
+          <%= @patient.city.presence || "Not Added" %>
+        </strong>
+      </div>
+
+      <div class="info-row">
+        <span>State</span>
+        <strong>
+          <%= @patient.state.presence || "Not Added" %>
+        </strong>
+      </div>
+
+      <div class="info-row">
+        <span>PIN Code</span>
+        <strong>
+          <%= @patient.pin_code.presence || "Not Added" %>
+        </strong>
+      </div>
+
+    </div>
+
+
+    <!-- EMERGENCY CONTACT -->
+    <div class="profile-card">
+
+      <div class="card-title emergency-title">
+        <span>📞</span>
+        <h3>Emergency Contact</h3>
+      </div>
+
+      <div class="info-row">
+        <span>Contact Name</span>
+        <strong>
+          <%= @patient.emergency_contact_name.presence || "Not Added" %>
+        </strong>
+      </div>
+
+      <div class="info-row">
+        <span>Relationship</span>
+        <strong>
+          <%= @patient.emergency_relationship.presence || "Not Added" %>
+        </strong>
+      </div>
+
+      <div class="info-row">
+        <span>Phone Number</span>
+        <strong>
+          <%= @patient.emergency_phone.presence || "Not Added" %>
+        </strong>
+      </div>
+
+      <div class="emergency-note">
+        🚨
+        <span>
+          In case of emergency, please contact the above person.
+        </span>
+      </div>
+
+    </div>
+
+
+    <!-- MEDICAL INFORMATION -->
+    <div class="profile-card">
+
+      <div class="card-title">
+        <span>❤️</span>
+        <h3>Medical Information</h3>
+      </div>
+
+      <div class="info-row">
+        <span>Allergies</span>
+        <strong>
+          <%= @patient.allergies.presence || "Not Added" %>
+        </strong>
+      </div>
+
+      <div class="info-row">
+        <span>Chronic Conditions</span>
+        <strong>
+          <%= @patient.chronic_conditions.presence || "Not Added" %>
+        </strong>
+      </div>
+
+      <div class="info-row">
+        <span>Current Medications</span>
+        <strong>
+          <%= @patient.current_medications.presence || "Not Added" %>
+        </strong>
+      </div>
+
+      <div class="info-row">
+        <span>Smoking Status</span>
+        <strong>
+          <%= @patient.smoking_status.presence || "Not Added" %>
+        </strong>
+      </div>
+
+      <div class="info-row">
+        <span>Alcohol Consumption</span>
+        <strong>
+          <%= @patient.alcohol_consumption.presence || "Not Added" %>
+        </strong>
+      </div>
+
+    </div>
+
+
+    <!-- ACCOUNT INFORMATION -->
+    <div class="profile-card">
+
+      <div class="card-title">
+        <span>🛡️</span>
+        <h3>Account Information</h3>
+      </div>
+
+      <div class="info-row">
+        <span>Account Created</span>
+        <strong>
+          <%= @patient.created_at.strftime("%d %b %Y") %>
+        </strong>
+      </div>
+
+      <div class="info-row">
+        <span>Last Updated</span>
+        <strong>
+          <%= @patient.updated_at.strftime("%d %b %Y, %I:%M %p") %>
+        </strong>
+      </div>
+
+      <div class="info-row">
+        <span>Account Status</span>
+        <strong class="status-active">
+          Active
+        </strong>
+      </div>
+
+      <div class="info-row">
+        <span>Registered By</span>
+        <strong>Self</strong>
+      </div>
+
+    </div>
+
+
+    <!-- QUICK SUMMARY -->
+    <div class="profile-card">
+
+      <div class="card-title">
+        <span>📊</span>
+        <h3>Quick Summary</h3>
+      </div>
+
+      <div class="quick-summary-grid">
+
+        <div class="quick-box">
+          <span>📅</span>
+          <strong>0</strong>
+          <small>Appointments</small>
+        </div>
+
+        <div class="quick-box">
+          <span>📄</span>
+          <strong>0</strong>
+          <small>Prescriptions</small>
+        </div>
+
+        <div class="quick-box">
+          <span>🧪</span>
+          <strong>0</strong>
+          <small>Lab Reports</small>
+        </div>
+
+        <div class="quick-box">
+          <span>₹</span>
+          <strong>0</strong>
+          <small>Total Paid</small>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

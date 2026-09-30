@@ -1,0 +1,384 @@
+
+<div class="doctor-appointments-page">
+
+  <!-- PAGE HEADER -->
+  <div class="appointments-header">
+
+    <div>
+      <h1>My Appointments</h1>
+      <p>Manage your patient appointments</p>
+    </div>
+
+  </div>
+
+
+  <!-- STAT CARDS -->
+  <div class="appointment-stats">
+
+    <!-- TOTAL -->
+    <div class="appointment-stat-card blue">
+
+      <div class="appointment-stat-icon">
+        📅
+      </div>
+
+      <div>
+        <p>Total Appointments</p>
+
+        <h2>
+          <%= @appointments.count %>
+        </h2>
+
+        <%= link_to "View all →",
+            doctor_appointments_path %>
+      </div>
+
+    </div>
+
+
+    <!-- CONFIRMED -->
+    <div class="appointment-stat-card green">
+
+      <div class="appointment-stat-icon">
+        ✓
+      </div>
+
+      <div>
+        <p>Confirmed</p>
+
+        <h2>
+          <%= @appointments.where(status: "confirmed").count %>
+        </h2>
+
+        <%= link_to "View all →",
+            doctor_appointments_path(status: "confirmed") %>
+      </div>
+
+    </div>
+
+
+    <!-- PENDING -->
+    <div class="appointment-stat-card orange">
+
+      <div class="appointment-stat-icon">
+        ◷
+      </div>
+
+      <div>
+        <p>Pending</p>
+
+        <h2>
+          <%= @appointments.where(status: "pending").count %>
+        </h2>
+
+        <%= link_to "View all →",
+            doctor_appointments_path(status: "pending") %>
+      </div>
+
+    </div>
+
+
+    <!-- CANCELLED -->
+    <div class="appointment-stat-card red">
+
+      <div class="appointment-stat-icon">
+        ×
+      </div>
+
+      <div>
+        <p>Cancelled</p>
+
+        <h2>
+          <%= @appointments.where(status: "cancelled").count %>
+        </h2>
+
+        <%= link_to "View all →",
+            doctor_appointments_path(status: "cancelled") %>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- APPOINTMENTS TABLE CARD -->
+  <div class="appointments-table-card">
+
+    <!-- CARD HEADER -->
+    <div class="appointments-table-header">
+
+      <div class="table-title">
+
+        <span class="calendar-title-icon">
+          📅
+        </span>
+
+        <h2>All Appointments</h2>
+
+      </div>
+
+
+      <!-- SEARCH -->
+      <div class="appointment-tools">
+
+        <%= form_with url: doctor_appointments_path,
+            method: :get,
+            local: true,
+            class: "appointment-search-form" do |form| %>
+
+          <%= form.text_field :search,
+              placeholder: "Search appointments...",
+              class: "appointment-search" %>
+
+          <button type="submit" class="search-btn">
+            🔍
+          </button>
+
+        <% end %>
+
+      </div>
+
+    </div>
+
+
+    <!-- TABLE -->
+    <div class="appointment-table-wrapper">
+
+      <table class="doctor-appointment-table">
+
+        <thead>
+          <tr>
+
+            <th>Patient</th>
+            <th>Department</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Action</th>
+
+          </tr>
+        </thead>
+
+
+        <tbody>
+
+          <% if @appointments.any? %>
+
+            <% @appointments.each do |appointment| %>
+
+              <tr>
+
+                <!-- PATIENT -->
+                <td>
+
+                  <div class="appointment-patient">
+
+                    <div class="appointment-patient-avatar">
+                      👤
+                    </div>
+
+                    <div>
+
+                      <strong>
+                        <% if appointment.patient.present? %>
+
+                          <%= appointment.patient.first_name %>
+                          <%= appointment.patient.last_name %>
+
+                        <% elsif appointment.patient_name.present? %>
+
+                          <%= appointment.patient_name %>
+
+                        <% else %>
+
+                          Patient unavailable
+
+                        <% end %>
+                      </strong>
+
+                    </div>
+
+                  </div>
+
+                </td>
+
+
+                <!-- DEPARTMENT -->
+                <td>
+
+                  <span class="department-name">
+                    <%= appointment.department.presence || "General Medicine" %>
+                  </span>
+
+                </td>
+
+
+                <!-- DATE -->
+                <td>
+
+                  <div class="date-info">
+
+                    <span>📅</span>
+
+                    <div>
+
+                      <% if appointment.appointment_date.present? %>
+
+                        <strong>
+                          <%= appointment.appointment_date.strftime("%d %b %Y") %>
+                        </strong>
+
+                        <small>
+                          <%= appointment.appointment_date.strftime("%A") %>
+                        </small>
+
+                      <% else %>
+
+                        <strong>-</strong>
+
+                      <% end %>
+
+                    </div>
+
+                  </div>
+
+                </td>
+
+
+                <!-- TIME -->
+                <td>
+
+                  <div class="time-info">
+
+                    <span>◷</span>
+
+                    <% if appointment.appointment_time.present? %>
+
+                      <strong>
+                        <%= appointment.appointment_time.strftime("%I:%M %p") %>
+                      </strong>
+
+                    <% else %>
+
+                      <strong>-</strong>
+
+                    <% end %>
+
+                  </div>
+
+                </td>
+
+
+                <!-- STATUS -->
+                <td>
+
+                  <% status = appointment.status.to_s.downcase %>
+
+                  <span class="appointment-status <%= status %>">
+
+                    <span class="status-dot"></span>
+
+                    <%= appointment.status.presence || "Pending" %>
+
+                  </span>
+
+                </td>
+
+
+                <!-- ACTION -->
+                <td>
+
+                  <% if appointment.status.to_s.downcase == "pending" %>
+
+                    <div class="appointment-actions">
+
+                      <!-- CONFIRM -->
+                      <%= button_to "Confirm",
+                          confirm_doctor_appointment_path(appointment),
+                          method: :patch,
+                          class: "confirm-btn" %>
+
+
+                      <!-- REJECT -->
+                      <%= button_to "Reject",
+                          reject_doctor_appointment_path(appointment),
+                          method: :patch,
+                          class: "reject-btn" %>
+
+                    </div>
+
+                  <% elsif appointment.status.to_s.downcase == "confirmed" %>
+
+                    <span class="action-done confirmed-action">
+                      ✓ Confirmed
+                    </span>
+
+                  <% elsif appointment.status.to_s.downcase == "cancelled" %>
+
+                    <span class="action-done cancelled-action">
+                      ✕ Rejected
+                    </span>
+
+                  <% else %>
+
+                    <span class="action-done">
+                      Completed
+                    </span>
+
+                  <% end %>
+
+                </td>
+
+              </tr>
+
+            <% end %>
+
+
+          <% else %>
+
+            <!-- NO APPOINTMENTS -->
+            <tr>
+
+              <td colspan="6">
+
+                <div class="no-appointments">
+
+                  <div class="no-appointment-icon">
+                    📅
+                  </div>
+
+                  <h3>No appointments found</h3>
+
+                  <p>
+                    You don't have any patient appointments yet.
+                  </p>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+          <% end %>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <div class="appointments-footer">
+
+      <p>
+        Showing
+        <strong><%= @appointments.count %></strong>
+        appointments
+      </p>
+
+    </div>
+
+  </div>
+
+</div>

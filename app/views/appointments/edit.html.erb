@@ -1,0 +1,55 @@
+<div class="patient-dashboard">
+
+  <%= render "shared/patient_sidebar" %>
+
+  <main class="dashboard-main appointment-page">
+
+    <!-- Header -->
+    <div class="dashboard-header">
+
+      <div>
+        <h1>Edit Appointment</h1>
+        <p>Update your appointment information</p>
+      </div>
+
+      <div class="header-profile">
+
+        <div class="notification">
+          🔔
+        </div>
+
+        <div class="user-avatar">
+          P
+        </div>
+
+        <div>
+          <strong>Patient</strong>
+          <small>Patient</small>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- Heading -->
+    <div class="appointments-heading">
+
+      <div>
+        <h2>Update Appointment</h2>
+        <p>Change your doctor, date, time or appointment status</p>
+      </div>
+
+      <%= link_to "← Back to Appointments",
+          appointments_path,
+          class: "back-btn" %>
+
+    </div>
+
+
+    <!-- Form -->
+    <%= render "form" %>
+
+  </main>
+
+</div>

@@ -1,0 +1,357 @@
+<div class="medical-report-page">
+
+  <div class="medical-report-card">
+
+    <!-- =========================
+         REPORT HEADER
+    ========================== -->
+
+    <div class="report-header">
+
+      <div class="hospital-info">
+        <div class="hospital-logo">✚</div>
+
+        <div>
+          <h1>GLOBAL HOSPITALS</h1>
+          <p>Advanced Healthcare & Diagnostic Center</p>
+        </div>
+      </div>
+
+      <div class="report-title">
+        <h2>MEDICAL REPORT</h2>
+        <span>Laboratory / Clinical Report</span>
+      </div>
+
+    </div>
+
+
+    <div class="report-divider"></div>
+
+
+    <!-- =========================
+         REPORT INFORMATION
+    ========================== -->
+
+    <div class="section-title">
+      <span>Report Information</span>
+    </div>
+
+    <div class="info-grid">
+
+      <div class="info-item">
+        <label>Report Code</label>
+        <strong><%= @medical_report.report_code.presence || "N/A" %></strong>
+      </div>
+
+      <div class="info-item">
+        <label>Lab No.</label>
+        <strong><%= @medical_report.lab_no.presence || "N/A" %></strong>
+      </div>
+
+      <div class="info-item">
+        <label>Report Type</label>
+        <strong><%= @medical_report.report_type.presence || "N/A" %></strong>
+      </div>
+
+      <div class="info-item">
+        <label>Report Date</label>
+        <strong>
+          <%= @medical_report.report_date&.strftime("%d %b %Y") || "N/A" %>
+        </strong>
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         PATIENT INFORMATION
+    ========================== -->
+
+    <div class="section-title">
+      <span>Patient Information</span>
+    </div>
+
+    <div class="patient-info-grid">
+
+      <div class="info-item">
+        <label>Patient Name</label>
+        <strong>
+          <%= "#{@medical_report.patient.first_name} #{@medical_report.patient.last_name}" %>
+        </strong>
+      </div>
+
+      <div class="info-item">
+        <label>Gender</label>
+        <strong>
+          <%= @medical_report.patient.gender.presence || "N/A" %>
+        </strong>
+      </div>
+
+      <div class="info-item">
+        <label>Phone</label>
+        <strong>
+          <%= @medical_report.patient.phone.presence || "N/A" %>
+        </strong>
+      </div>
+
+      <div class="info-item">
+        <label>Email</label>
+        <strong>
+          <%= @medical_report.patient.email.presence || "N/A" %>
+        </strong>
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         DOCTOR INFORMATION
+    ========================== -->
+
+    <div class="section-title">
+      <span>Doctor & Visit Information</span>
+    </div>
+
+    <div class="info-grid">
+
+      <div class="info-item">
+        <label>Doctor</label>
+        <strong>
+          <%= @medical_report.doctor_name.presence || "N/A" %>
+        </strong>
+      </div>
+
+      <div class="info-item">
+        <label>Department</label>
+        <strong>
+          <%= @medical_report.department.presence || "N/A" %>
+        </strong>
+      </div>
+
+      <div class="info-item">
+        <label>Visit Date</label>
+        <strong>
+          <%= @medical_report.visit_date&.strftime("%d %b %Y") || "N/A" %>
+        </strong>
+      </div>
+
+      <div class="info-item">
+        <label>Sample Type</label>
+        <strong>
+          <%= @medical_report.sample_type.presence || "N/A" %>
+        </strong>
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         SAMPLE INFORMATION
+    ========================== -->
+
+    <div class="sample-box">
+
+      <div>
+        <span>Sample Collected</span>
+        <strong>
+          <%= @medical_report.sample_collected_at&.strftime("%d %b %Y, %I:%M %p") || "N/A" %>
+        </strong>
+      </div>
+
+      <div>
+        <span>Fasting</span>
+        <strong>
+          <%= @medical_report.fasting.presence || "N/A" %>
+        </strong>
+      </div>
+
+      <div>
+        <span>Status</span>
+        <strong class="status-badge">
+          <%= @medical_report.status.presence || "N/A" %>
+        </strong>
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         CLINICAL NOTES
+    ========================== -->
+
+    <% if @medical_report.clinical_notes.present? %>
+
+      <div class="section-title">
+        <span>Clinical Notes</span>
+      </div>
+
+      <div class="text-box">
+        <%= simple_format(@medical_report.clinical_notes) %>
+      </div>
+
+    <% end %>
+
+
+    <!-- =========================
+         TEST RESULTS
+    ========================== -->
+
+    <div class="section-title">
+      <span>Test Results</span>
+    </div>
+
+    <% if @medical_report.test_results.any? %>
+
+      <div class="results-table-wrapper">
+
+        <table class="results-table">
+
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Test Name</th>
+              <th>Result</th>
+              <th>Unit</th>
+              <th>Reference Range</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <% @medical_report.test_results.each_with_index do |test, index| %>
+
+              <tr>
+
+                <td><%= index + 1 %></td>
+
+                <td class="test-name">
+                  <%= test.test_name %>
+                </td>
+
+                <td>
+                  <strong><%= test.result %></strong>
+                </td>
+
+                <td>
+                  <%= test.unit.presence || "-" %>
+                </td>
+
+                <td>
+                  <%= test.reference_range.presence || "-" %>
+                </td>
+
+                <td>
+                  <span class="result-status <%= test.status.to_s.downcase %>">
+                    <%= test.status.presence || "Normal" %>
+                  </span>
+                </td>
+
+              </tr>
+
+            <% end %>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    <% else %>
+
+      <div class="no-results">
+        No test results available for this report.
+      </div>
+
+    <% end %>
+
+
+    <!-- =========================
+         SUMMARY
+    ========================== -->
+
+    <% if @medical_report.summary.present? %>
+
+      <div class="section-title">
+        <span>Report Summary</span>
+      </div>
+
+      <div class="text-box">
+        <%= simple_format(@medical_report.summary) %>
+      </div>
+
+    <% end %>
+
+
+    <!-- =========================
+         INTERPRETATION
+    ========================== -->
+
+    <% if @medical_report.interpretation.present? %>
+
+      <div class="section-title">
+        <span>Interpretation</span>
+      </div>
+
+      <div class="interpretation-box">
+        <%= simple_format(@medical_report.interpretation) %>
+      </div>
+
+    <% end %>
+
+
+    <!-- =========================
+         RECOMMENDATIONS
+    ========================== -->
+
+    <% if @medical_report.recommendations.present? %>
+
+      <div class="section-title">
+        <span>Recommendations</span>
+      </div>
+
+      <div class="text-box">
+        <%= simple_format(@medical_report.recommendations) %>
+      </div>
+
+    <% end %>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <div class="report-footer">
+
+      <div>
+        <p>Generated by</p>
+        <strong>GLOBAL HOSPITALS</strong>
+      </div>
+
+      <div class="doctor-signature">
+        <div class="signature-line"></div>
+        <span>Authorized Doctor</span>
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         ACTION BUTTONS
+    ========================== -->
+
+    <div class="report-actions">
+
+      <%= link_to "← Back to Medical Records",
+          medical_records_path,
+          class: "back-btn" %>
+
+      <button onclick="window.print()" class="print-btn">
+        🖨 Print Report
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

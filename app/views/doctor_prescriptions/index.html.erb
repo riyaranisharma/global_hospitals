@@ -1,0 +1,150 @@
+<div class="prescription-page">
+
+  <div class="prescription-header">
+
+    <div>
+      <h1>Prescriptions</h1>
+      <p>Manage prescriptions issued to your patients</p>
+    </div>
+
+    <%= link_to "+ Create Prescription",
+        new_doctor_prescription_path,
+        class: "create-prescription-btn" %>
+
+  </div>
+
+
+  <% if notice.present? %>
+
+    <div class="alert-success">
+      <%= notice %>
+    </div>
+
+  <% end %>
+
+
+  <% if alert.present? %>
+
+    <div class="alert-error">
+      <%= alert %>
+    </div>
+
+  <% end %>
+
+
+  <div class="prescription-card">
+
+    <% if @prescriptions.any? %>
+
+      <div class="table-wrapper">
+
+        <table class="prescription-table">
+
+          <thead>
+
+            <tr>
+              <th>Patient</th>
+              <th>Diagnosis</th>
+              <th>Prescription Date</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+            <% @prescriptions.each do |prescription| %>
+
+              <tr>
+
+                <td>
+
+                  <% if prescription.patient.present? %>
+
+                    <strong>
+                      <%= prescription.patient.first_name %>
+                      <%= prescription.patient.last_name %>
+                    </strong>
+
+                    <small>
+                      Patient #<%= prescription.patient.id %>
+                    </small>
+
+                  <% else %>
+
+                    Unknown Patient
+
+                  <% end %>
+
+                </td>
+
+
+                <td>
+                  <%= truncate(
+                        prescription.diagnosis,
+                        length: 50
+                      ) %>
+                </td>
+
+
+                <td>
+                  <%= prescription.created_at.strftime("%d %b %Y") %>
+                </td>
+
+
+                <td>
+
+                  <span class="prescription-status <%= prescription.status %>">
+
+                    <%= prescription.status.capitalize %>
+
+                  </span>
+
+                </td>
+
+
+                <td>
+
+                  <%= link_to "View",
+                      doctor_prescription_path(prescription),
+                      class: "view-prescription-btn" %>
+
+                </td>
+
+              </tr>
+
+            <% end %>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    <% else %>
+
+      <div class="empty-prescriptions">
+
+        <div class="empty-icon">
+          💊
+        </div>
+
+        <h3>No Prescriptions Yet</h3>
+
+        <p>
+          Prescriptions you create for your patients will appear here.
+        </p>
+
+        <%= link_to "Create Prescription",
+            new_doctor_prescription_path,
+            class: "create-prescription-btn" %>
+
+      </div>
+
+    <% end %>
+
+  </div>
+
+</div>

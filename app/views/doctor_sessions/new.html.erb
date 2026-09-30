@@ -1,0 +1,42 @@
+<div class="login-page">
+
+  <div class="login-card">
+
+    <h1>Doctor Login</h1>
+
+    <% if flash[:alert] %>
+      <p class="error-message">
+        <%= flash[:alert] %>
+      </p>
+    <% end %>
+
+    <%= form_with url: doctor_login_path,
+                  method: :post,
+                  local: true do %>
+
+      <div class="form-group">
+        <%= email_field_tag :email,
+            nil,
+            placeholder: "Doctor Email",
+            required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= password_field_tag :password,
+            nil,
+            placeholder: "Password",
+            required: true %>
+      </div>
+
+      <div class="forgot-password">
+        <%= link_to "Forgot Password?", doctor_forgot_password_path %>
+      </div>
+
+      <%= submit_tag "Doctor Login",
+          class: "login-btn" %>
+
+    <% end %>
+
+  </div>
+
+</div>

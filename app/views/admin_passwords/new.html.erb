@@ -1,0 +1,37 @@
+<div class="login-page">
+
+  <div class="login-card">
+
+    <h1>Forgot Password</h1>
+
+    <p>Please enter your registered admin email.</p>
+
+    <% if flash[:alert] %>
+      <div class="error-message">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+
+    <%= form_with url: admin_forgot_password_path,
+                  method: :post,
+                  local: true do %>
+
+      <div class="form-group">
+        <%= email_field_tag :email,
+            nil,
+            placeholder: "Admin Email",
+            required: true %>
+      </div>
+
+      <%= submit_tag "Continue",
+          class: "login-btn" %>
+
+    <% end %>
+
+    <div class="forgot-password">
+      <%= link_to "← Back to Admin Login", admin_login_path %>
+    </div>
+
+  </div>
+
+</div>

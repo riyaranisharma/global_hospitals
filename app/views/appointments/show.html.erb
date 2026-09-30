@@ -1,0 +1,134 @@
+<div class="patient-dashboard">
+
+  <%= render "shared/patient_sidebar" %>
+
+  <main class="dashboard-main appointment-page">
+
+    <!-- Header -->
+    <div class="dashboard-header">
+
+      <div>
+        <h1>Appointment Details</h1>
+        <p>View complete appointment information</p>
+      </div>
+
+      <div class="header-profile">
+
+        <div class="notification">
+          🔔
+        </div>
+
+        <div class="user-avatar">
+          P
+        </div>
+
+        <div>
+          <strong>Patient</strong>
+          <small>Patient</small>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- Appointment Details Card -->
+    <div class="appointment-show-card">
+
+      <div class="show-card-header">
+
+        <div class="show-doctor-avatar">
+          🩺
+        </div>
+
+        <div>
+          <h2>
+            <%= @appointment.doctor_name %>
+          </h2>
+
+          <p>
+            <%= @appointment.department %>
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="appointment-info-grid">
+
+        <!-- Date -->
+        <div class="info-box">
+
+          <span class="info-label">
+            📅 Appointment Date
+          </span>
+
+          <strong>
+            <%= @appointment.appointment_date&.strftime("%d %B %Y") %>
+          </strong>
+
+        </div>
+
+
+        <!-- Time -->
+        <div class="info-box">
+
+          <span class="info-label">
+            ⏰ Appointment Time
+          </span>
+
+          <strong>
+            <%= @appointment.appointment_time&.strftime("%I:%M %p") %>
+          </strong>
+
+        </div>
+
+
+        <!-- Department -->
+        <div class="info-box">
+
+          <span class="info-label">
+            🏥 Department
+          </span>
+
+          <strong>
+            <%= @appointment.department %>
+          </strong>
+
+        </div>
+
+
+        <!-- Status -->
+        <div class="info-box">
+
+          <span class="info-label">
+            📌 Status
+          </span>
+
+          <span class="show-status <%= @appointment.status.to_s.downcase %>">
+            <%= @appointment.status %>
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- Actions -->
+      <div class="show-actions">
+
+        <%= link_to "← Back",
+            appointments_path,
+            class: "cancel-btn" %>
+
+        <%= link_to "✏️ Edit Appointment",
+            edit_appointment_path(@appointment),
+            class: "edit-btn" %>
+
+      </div>
+
+    </div>
+
+  </main>
+
+</div>

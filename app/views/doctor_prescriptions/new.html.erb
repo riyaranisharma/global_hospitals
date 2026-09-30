@@ -1,0 +1,529 @@
+<div class="old-prescription-page">
+
+  <!-- TOP TABS -->
+  <div class="prescription-tabs">
+
+    <%= link_to "New Prescription",
+        new_doctor_prescription_path,
+        class: "prescription-tab active" %>
+
+    <%= link_to "Old Prescription",
+        doctor_prescriptions_path,
+        class: "prescription-tab" %>
+
+    <%= link_to "Patient's History",
+        doctor_patients_path,
+        class: "prescription-tab" %>
+
+  </div>
+
+
+  <!-- HEADER -->
+  <div class="prescription-title-row">
+
+    <div>
+      <h1>Prescription</h1>
+      <p>Doctor Prescription Form</p>
+    </div>
+
+    <div class="doctor-name-box">
+      <strong>Doctor:</strong>
+
+      <%= @doctor.first_name %>
+      <%= @doctor.last_name %>
+    </div>
+
+  </div>
+
+
+  <!-- ERRORS -->
+  <% if @prescription.errors.any? %>
+
+    <div class="prescription-errors">
+
+      <strong>
+        Please fix the following:
+      </strong>
+
+      <ul>
+        <% @prescription.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+
+    </div>
+
+  <% end %>
+
+
+  <!-- FORM -->
+  <%= form_with model: @prescription,
+      url: doctor_prescriptions_path,
+      local: true do |form| %>
+
+
+    <!-- PATIENT INFORMATION -->
+    <fieldset>
+
+      <legend>Patient Information</legend>
+
+      <div class="patient-grid">
+
+
+        <!-- APPOINTMENT -->
+        <div class="field field-wide">
+
+          <%= form.label :appointment_id, "Appointment" %>
+
+          <%= form.collection_select :appointment_id,
+              @appointments,
+              :id,
+              ->(appointment) {
+
+                patient = appointment.patient
+
+                if patient
+                  "#{patient.first_name} #{patient.last_name} - #{appointment.appointment_date} #{appointment.appointment_time}"
+                else
+                  "Appointment ##{appointment.id}"
+                end
+
+              },
+              { prompt: "Select Appointment" },
+              { class: "old-input" } %>
+
+        </div>
+
+
+        <!-- PRESCRIPTION NUMBER -->
+        <div class="field">
+
+          <label>
+            Prescription No.
+          </label>
+
+          <input
+            type="text"
+            value="<%= @prescription.prescription_no.presence || 'Auto Generated' %>"
+            class="old-input"
+            readonly>
+
+        </div>
+
+
+        <!-- DATE -->
+        <div class="field">
+
+          <label>
+            Date
+          </label>
+
+          <input
+            type="text"
+            value="<%= Date.current.strftime('%d-%m-%Y') %>"
+            class="old-input"
+            readonly>
+
+        </div>
+
+
+        <!-- DOCTOR -->
+        <div class="field">
+
+          <label>
+            Doctor
+          </label>
+
+          <input
+            type="text"
+            value="<%= @doctor.first_name %> <%= @doctor.last_name %>"
+            class="old-input"
+            readonly>
+
+        </div>
+
+
+        <!-- PATIENT NAME -->
+        <div class="field field-wide">
+
+          <label>
+            Patient Name
+          </label>
+
+          <input
+            type="text"
+            id="patient-name"
+            class="old-input"
+            readonly>
+
+        </div>
+
+
+        <!-- PATIENT ID -->
+        <div class="field">
+
+          <label>
+            Patient ID
+          </label>
+
+          <input
+            type="text"
+            id="patient-id"
+            class="old-input"
+            readonly>
+
+        </div>
+
+
+        <!-- MOBILE -->
+        <div class="field">
+
+          <label>
+            Mobile
+          </label>
+
+          <input
+            type="text"
+            id="patient-mobile"
+            class="old-input"
+            readonly>
+
+        </div>
+
+
+      </div>
+
+    </fieldset>
+
+
+
+    <!-- DIAGNOSIS -->
+    <fieldset>
+
+      <legend>Diagnosis</legend>
+
+      <div class="diagnosis-grid">
+
+
+        <!-- VITALS -->
+        <div class="vitals-box">
+
+          <div class="vital-row">
+
+            <%= form.label :blood_pressure, "BP" %>
+
+            <%= form.text_field :blood_pressure,
+                class: "small-input",
+                placeholder: "120/80" %>
+
+            <span>mmHg</span>
+
+          </div>
+
+
+          <div class="vital-row">
+
+            <%= form.label :pulse_rate, "Pulse" %>
+
+            <%= form.number_field :pulse_rate,
+                class: "small-input",
+                placeholder: "72" %>
+
+            <span>bpm</span>
+
+          </div>
+
+        </div>
+
+
+        <!-- DIAGNOSIS -->
+        <div class="diagnosis-description">
+
+          <%= form.label :diagnosis, "Diagnosis" %>
+
+          <%= form.text_area :diagnosis,
+              class: "old-input diagnosis-input",
+              rows: 3,
+              placeholder: "Enter diagnosis..." %>
+
+        </div>
+
+      </div>
+
+    </fieldset>
+
+
+
+    <!-- DISEASE -->
+    <fieldset>
+
+      <legend>
+        Description of Disease
+      </legend>
+
+      <%= form.text_area :description_of_disease,
+          class: "notes-input",
+          rows: 3,
+          placeholder: "Describe patient's condition, symptoms and findings..." %>
+
+    </fieldset>
+
+
+
+    <!-- TESTS -->
+    <fieldset>
+
+      <legend>
+        Tests
+      </legend>
+
+      <%= form.text_area :tests,
+          class: "notes-input",
+          rows: 4,
+          placeholder: "Enter recommended tests&#10;1. CBC&#10;2. Blood Sugar&#10;3. X-Ray" %>
+
+    </fieldset>
+
+
+
+    <!-- MEDICINES -->
+    <fieldset>
+
+      <legend>
+        Rx / Medicines
+      </legend>
+
+      <div class="medicine-table-wrapper">
+
+        <table class="medicine-table">
+
+          <thead>
+
+            <tr>
+
+              <th>#</th>
+
+              <th>Drug</th>
+
+              <th>Dosage</th>
+
+              <th>Strength</th>
+
+              <th>Quantity</th>
+
+              <th>Frequency</th>
+
+              <th>Remarks</th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+          <% @prescription.prescription_medicines.each_with_index do |medicine, index| %>
+              <%= form.fields_for :prescription_medicines, medicine do |medicine_form| %>
+
+                <tr>
+
+                  <td class="medicine-number">
+                    <%= index + 1 %>
+                  </td>
+
+
+                  <!-- DRUG -->
+                  <td>
+
+                    <%= medicine_form.text_field :medicine_name,
+                        class: "table-input",
+                        placeholder: "Medicine name" %>
+
+                  </td>
+
+
+                  <!-- DOSAGE -->
+                  <td>
+
+                    <%= medicine_form.text_field :dosage,
+                        class: "table-input",
+                        placeholder: "1 tablet" %>
+
+                  </td>
+
+
+                  <!-- STRENGTH -->
+                  <td>
+
+                    <%= medicine_form.text_field :strength,
+                        class: "table-input",
+                        placeholder: "500 mg" %>
+
+                  </td>
+
+
+                  <!-- QUANTITY -->
+                  <td>
+
+                    <%= medicine_form.text_field :quantity,
+                        class: "table-input",
+                        placeholder: "10" %>
+
+                  </td>
+
+
+                  <!-- FREQUENCY -->
+                  <td>
+
+                    <%= medicine_form.text_field :frequency,
+                        class: "table-input",
+                        placeholder: "1-0-1" %>
+
+                  </td>
+
+
+                  <!-- REMARKS -->
+                  <td>
+
+                    <%= medicine_form.text_field :remarks,
+                        class: "table-input",
+                        placeholder: "After food" %>
+
+                  </td>
+
+                </tr>
+
+              <% end %>
+
+            <% end %>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </fieldset>
+
+
+
+    <!-- ADVICE -->
+    <fieldset>
+
+      <legend>
+        Advice
+      </legend>
+
+      <%= form.text_area :advice,
+          class: "advice-input",
+          rows: 4,
+          placeholder: "Enter advice for patient..." %>
+
+    </fieldset>
+
+
+
+    <!-- NOTES -->
+    <fieldset>
+
+      <legend>
+        Notes
+      </legend>
+
+      <%= form.text_area :notes,
+          class: "notes-input",
+          rows: 3,
+          placeholder: "Additional notes..." %>
+
+    </fieldset>
+
+
+
+    <!-- BUTTONS -->
+    <div class="prescription-actions">
+
+      <button
+        type="button"
+        class="old-button"
+        onclick="window.print()">
+        🖨 Print Preview
+      </button>
+
+      <button
+        type="reset"
+        class="old-button">
+        Clear All
+      </button>
+
+      <%= form.submit "Save Prescription",
+          class: "save-button" %>
+
+    </div>
+
+
+  <% end %>
+
+</div>
+
+
+
+<!-- PATIENT DETAILS SCRIPT -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const appointmentSelect =
+    document.getElementById("prescription_appointment_id");
+
+  const patientName =
+    document.getElementById("patient-name");
+
+  const patientId =
+    document.getElementById("patient-id");
+
+  const patientMobile =
+    document.getElementById("patient-mobile");
+
+
+  if (!appointmentSelect) return;
+
+
+  appointmentSelect.addEventListener("change", function () {
+
+    const appointmentId = this.value;
+
+
+    patientName.value = "";
+    patientId.value = "";
+    patientMobile.value = "";
+
+
+    if (!appointmentId) return;
+
+
+    <% @appointments.each do |appointment| %>
+
+      if (appointmentId === "<%= appointment.id %>") {
+
+        <% if appointment.patient %>
+
+          patientName.value =
+            "<%= j "#{appointment.patient.first_name} #{appointment.patient.last_name}" %>";
+
+          patientId.value =
+            "<%= appointment.patient.id %>";
+
+          patientMobile.value =
+            "<%= j appointment.patient.phone.to_s %>";
+
+        <% end %>
+
+      }
+
+    <% end %>
+
+  });
+
+});
+
+</script>

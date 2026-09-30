@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  doctor: one
+  day_of_week: MyString
+  start_time: 2026-09-07 12:52:47
+  end_time: 2026-09-07 12:52:47
+  break_start: 2026-09-07 12:52:47
+  break_end: 2026-09-07 12:52:47
+  slot_duration: 1
+  status: MyString
+
+two:
+  doctor: two
+  day_of_week: MyString
+  start_time: 2026-09-07 12:52:47
+  end_time: 2026-09-07 12:52:47
+  break_start: 2026-09-07 12:52:47
+  break_end: 2026-09-07 12:52:47
+  slot_duration: 1
+  status: MyString

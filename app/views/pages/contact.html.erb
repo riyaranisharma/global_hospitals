@@ -1,0 +1,449 @@
+<div class="registration-page">
+
+  <!-- NAVBAR -->
+  <nav class="hospital-navbar">
+    <div class="hospital-logo">
+      <span class="logo-icon">♟</span>
+      <span>PARAS HOSPITALS</span>
+    </div>
+
+    <div class="nav-links">
+      <%= link_to "HOME", root_path %>
+       <%= link_to "ABOUT US", about_path, class: "nav-link" %>
+
+    <%= link_to "CONTACT", contact_path, class: "nav-link" %>
+    </div>
+  </nav>
+
+<!-- =========================================
+        PARAS HOSPITAL CONTACT PAGE
+========================================= -->
+
+<div class="contact-page">
+
+  <!-- =========================================
+        HERO SECTION
+  ========================================== -->
+
+  <section class="contact-hero">
+
+    <div class="contact-hero-overlay"></div>
+
+    <div class="contact-hero-content">
+
+      <span class="contact-badge">
+        GET IN TOUCH
+      </span>
+
+      <h1>
+        Contact
+        <span>Paras Hospital</span>
+      </h1>
+
+      <p>
+        We're here to assist you with appointments, medical enquiries,
+        emergency support, and all your healthcare needs.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================
+        CONTACT INFORMATION + MAP
+  ========================================== -->
+
+  <section class="contact-section">
+
+    <div class="contact-container">
+
+      <!-- =====================================
+            LEFT SIDE - CONTACT INFORMATION
+      ====================================== -->
+
+      <div class="contact-info">
+
+        <span class="section-label">
+          CONTACT INFORMATION
+        </span>
+
+        <h2>
+          We're Here to
+          <span>Help You</span>
+        </h2>
+
+        <p class="contact-description">
+          Get in touch with Paras Hospital for appointments, medical
+          assistance, general enquiries, or emergency support.
+          Our dedicated team is always ready to assist you.
+        </p>
+
+
+        <!-- =====================================
+              CONTACT CARDS
+        ====================================== -->
+
+        <div class="contact-details">
+
+
+          <!-- =================================
+                LOCATION
+          ================================== -->
+
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Paras+Hospital+Kolkata"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-card"
+            aria-label="Open Paras Hospital location in Google Maps"
+          >
+
+            <div class="contact-icon">
+              📍
+            </div>
+
+            <div>
+
+              <h4>
+                Our Location
+              </h4>
+
+              <p>
+                Paras Hospital<br>
+                Kolkata, West Bengal, India
+              </p>
+
+            </div>
+
+          </a>
+
+
+          <!-- =================================
+                PHONE
+          ================================== -->
+
+          <a
+            href="tel:+911234567890"
+            class="contact-card"
+            aria-label="Call Paras Hospital"
+          >
+
+            <div class="contact-icon">
+              📞
+            </div>
+
+            <div>
+
+              <h4>
+                Call Us
+              </h4>
+
+              <p>
+                +91 12345 67890
+              </p>
+
+            </div>
+
+          </a>
+
+
+          <!-- =================================
+                EMAIL
+          ================================== -->
+
+          <a
+            href="mailto:info@parashospital.com"
+            class="contact-card"
+            aria-label="Email Paras Hospital"
+          >
+
+            <div class="contact-icon">
+              ✉️
+            </div>
+
+            <div>
+
+              <h4>
+                Email Us
+              </h4>
+
+              <p>
+                info@parashospital.com
+              </p>
+
+            </div>
+
+          </a>
+
+
+          <!-- =================================
+                WORKING HOURS
+          ================================== -->
+
+          <a
+            href="tel:+911234567890"
+            class="contact-card"
+            aria-label="Call Paras Hospital for assistance"
+          >
+
+            <div class="contact-icon">
+              🕒
+            </div>
+
+            <div>
+
+              <h4>
+                Working Hours
+              </h4>
+
+              <p>
+                Monday - Saturday<br>
+                24 Hours Emergency Service
+              </p>
+
+            </div>
+
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- =====================================
+            RIGHT SIDE - GOOGLE MAP
+      ====================================== -->
+
+      <div class="contact-map-box">
+
+        <div class="map-top">
+
+          <span class="map-label">
+            FIND US
+          </span>
+
+          <h3>
+            Visit
+            <span>Paras Hospital</span>
+          </h3>
+
+        </div>
+
+
+        <!-- MAP -->
+
+        <div class="map-container">
+
+          <iframe
+            src="https://www.google.com/maps?q=Paras%20Hospital%20Kolkata&output=embed"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+
+        </div>
+
+
+        <!-- DIRECTIONS -->
+
+        <a
+          href="https://www.google.com/maps/search/?api=1&query=Paras+Hospital+Kolkata"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="direction-btn"
+        >
+          Get Directions
+          <span>→</span>
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================
+        SEND MESSAGE SECTION
+  ========================================== -->
+
+  <section class="message-section">
+
+    <div class="message-container">
+
+
+      <!-- =====================================
+            FORM HEADER
+      ====================================== -->
+
+      <div class="message-heading">
+
+        <span class="form-label">
+          SEND US A MESSAGE
+        </span>
+
+        <h2>
+          How Can We
+          <span>Help You?</span>
+        </h2>
+
+        <p>
+          Have a question or need assistance?
+          Send us a message and our team will get back to you.
+        </p>
+
+      </div>
+
+
+      <!-- =====================================
+            CONTACT FORM
+      ====================================== -->
+
+      <div class="contact-form-box">
+
+        <form>
+
+
+          <!-- =================================
+                NAME + PHONE
+          ================================== -->
+
+          <div class="form-row">
+
+
+            <!-- NAME -->
+
+            <div class="form-group">
+
+              <label for="name">
+                Your Name
+              </label>
+
+              <input
+                id="name"
+                type="text"
+                name="name"
+                placeholder="Enter your name"
+                autocomplete="name"
+                required
+              >
+
+            </div>
+
+
+            <!-- PHONE -->
+
+            <div class="form-group">
+
+              <label for="phone">
+                Phone Number
+              </label>
+
+              <input
+                id="phone"
+                type="tel"
+                name="phone"
+                placeholder="Enter phone number"
+                autocomplete="tel"
+                required
+              >
+
+            </div>
+
+          </div>
+
+
+          <!-- =================================
+                EMAIL
+          ================================== -->
+
+          <div class="form-group">
+
+            <label for="email">
+              Email Address
+            </label>
+
+            <input
+              id="email"
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              autocomplete="email"
+              required
+            >
+
+          </div>
+
+
+          <!-- =================================
+                SUBJECT
+          ================================== -->
+
+          <div class="form-group">
+
+            <label for="subject">
+              Subject
+            </label>
+
+            <input
+              id="subject"
+              type="text"
+              name="subject"
+              placeholder="Enter subject"
+              required
+            >
+
+          </div>
+
+
+          <!-- =================================
+                MESSAGE
+          ================================== -->
+
+          <div class="form-group">
+
+            <label for="message">
+              Your Message
+            </label>
+
+            <textarea
+              id="message"
+              name="message"
+              rows="6"
+              placeholder="Write your message..."
+              required
+            ></textarea>
+
+          </div>
+
+
+          <!-- =================================
+                SEND BUTTON
+          ================================== -->
+
+          <button
+            type="submit"
+            class="send-btn"
+          >
+
+            Send Message
+
+            <span>
+              →
+            </span>
+
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>

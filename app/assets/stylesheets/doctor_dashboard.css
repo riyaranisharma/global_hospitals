@@ -1,0 +1,1036 @@
+/* =====================================================
+   DOCTOR DASHBOARD - PARAS HOSPITAL
+===================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f5f8fc;
+  color: #172033;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+/* =====================================================
+   DASHBOARD LAYOUT
+===================================================== */
+
+.doctor-dashboard {
+  min-height: 100vh;
+  display: flex;
+  background: #f5f8fc;
+}
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.doctor-sidebar {
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  background: #123d6b;
+  color: #fff;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 24px 16px;
+  overflow-y: auto;
+}
+
+
+/* =====================================================
+   HOSPITAL LOGO
+===================================================== */
+
+.hospital-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 5px 8px 22px;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.logo-icon {
+  width: 38px;
+  height: 38px;
+
+  border-radius: 8px;
+
+  background: #fff;
+  color: #1769d2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.hospital-logo strong {
+  display: block;
+
+  font-size: 20px;
+  line-height: 20px;
+
+  color: #fff;
+}
+
+.hospital-logo span {
+  display: block;
+
+  margin-top: 3px;
+
+  font-size: 11px;
+  letter-spacing: 1px;
+
+  color: #c8d9ea;
+}
+
+
+/* =====================================================
+   DOCTOR PROFILE
+===================================================== */
+
+.doctor-profile {
+  text-align: center;
+
+  padding: 25px 5px;
+
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.doctor-avatar {
+  width: 76px;
+  height: 76px;
+
+  margin: 0 auto 12px;
+
+  border-radius: 50%;
+
+  background: #edf5fc;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 35px;
+
+  border: 3px solid rgba(255,255,255,0.3);
+}
+
+.doctor-profile h3 {
+  margin: 0;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  color: #fff;
+}
+
+.doctor-profile p {
+  margin: 5px 0 8px;
+
+  font-size: 12px;
+
+  color: #d1e1ef;
+}
+
+.available {
+  font-size: 11px;
+  color: #bcd4e8;
+}
+
+.available:first-letter {
+  color: #3ddc84;
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.doctor-nav {
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+
+  margin-top: 20px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  min-height: 43px;
+
+  padding: 10px 13px;
+
+  border-radius: 7px;
+
+  color: #dbe8f4;
+
+  font-size: 13px;
+
+  transition: 0.2s ease;
+}
+
+.nav-item span {
+  width: 20px;
+
+  text-align: center;
+
+  font-size: 16px;
+}
+
+.nav-item:hover {
+  background: rgba(255,255,255,0.10);
+  color: #fff;
+}
+
+.nav-item.active {
+  background: #1d6bd1;
+  color: #fff;
+
+  font-weight: 600;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+.logout-area {
+  margin-top: auto;
+
+  padding-top: 18px;
+
+  border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.logout-btn {
+  width: 100%;
+
+  border: none;
+
+  background: transparent;
+
+  color: #dbe8f4;
+
+  padding: 11px 13px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  border-radius: 7px;
+
+  font-size: 13px;
+
+  cursor: pointer;
+
+  text-align: left;
+}
+
+.logout-btn span {
+  font-size: 18px;
+}
+
+.logout-btn:hover {
+  background: rgba(255,255,255,0.10);
+  color: #fff;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.doctor-main {
+  width: calc(100% - 250px);
+
+  margin-left: 250px;
+
+  min-height: 100vh;
+}
+
+
+/* =====================================================
+   TOP BAR
+===================================================== */
+
+.doctor-topbar {
+  height: 64px;
+
+  background: #fff;
+
+  border-bottom: 1px solid #e5eaf0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 30px;
+}
+
+.menu-btn {
+  border: none;
+
+  background: transparent;
+
+  font-size: 24px;
+
+  color: #263746;
+
+  cursor: pointer;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+
+  gap: 22px;
+}
+
+.notification {
+  position: relative;
+
+  font-size: 20px;
+
+  cursor: pointer;
+}
+
+.notification span {
+  position: absolute;
+
+  top: -8px;
+  right: -8px;
+
+  width: 17px;
+  height: 17px;
+
+  border-radius: 50%;
+
+  background: #ef4444;
+
+  color: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.top-avatar {
+  width: 36px;
+  height: 36px;
+
+  border-radius: 50%;
+
+  background: #f0f4f8;
+
+  border: 1px solid #dce4ec;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 20px;
+}
+
+
+/* =====================================================
+   DASHBOARD CONTENT
+===================================================== */
+
+.dashboard-content {
+  padding: 30px;
+
+  max-width: 1450px;
+
+  margin: auto;
+}
+
+
+/* =====================================================
+   HEADING
+===================================================== */
+
+.dashboard-heading {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 25px;
+}
+
+.dashboard-heading h1 {
+  margin: 0;
+
+  font-size: 27px;
+
+  color: #172033;
+
+  font-weight: 600;
+}
+
+.dashboard-heading p {
+  margin: 7px 0 0;
+
+  color: #718096;
+
+  font-size: 13px;
+}
+
+.date-card {
+  min-width: 220px;
+  height: 48px;
+
+  padding: 0 16px;
+
+  border: 1px solid #e1e7ef;
+
+  border-radius: 9px;
+
+  background: #fff;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  color: #344054;
+
+  font-size: 12px;
+
+  box-shadow: 0 2px 8px rgba(30,50,80,0.04);
+}
+
+
+/* =====================================================
+   STATISTICS
+===================================================== */
+
+.stats-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 20px;
+
+  margin-bottom: 23px;
+}
+
+.stat-card {
+  min-height: 125px;
+
+  padding: 20px;
+
+  border-radius: 12px;
+
+  border: 1px solid #e3eaf2;
+
+  display: flex;
+  align-items: center;
+
+  gap: 18px;
+
+  background: #fff;
+
+  box-shadow: 0 3px 12px rgba(30,50,80,0.04);
+}
+
+
+/* Card Backgrounds */
+
+.stat-card.blue {
+  background: linear-gradient(
+    135deg,
+    #ffffff,
+    #f4f8ff
+  );
+}
+
+.stat-card.green {
+  background: linear-gradient(
+    135deg,
+    #ffffff,
+    #f3fbf7
+  );
+}
+
+.stat-card.purple {
+  background: linear-gradient(
+    135deg,
+    #ffffff,
+    #faf7ff
+  );
+}
+
+
+/* Stat Icon */
+
+.stat-icon {
+  width: 58px;
+  height: 58px;
+
+  min-width: 58px;
+
+  border-radius: 11px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 27px;
+}
+
+.blue .stat-icon {
+  background: #e7f0ff;
+}
+
+.green .stat-icon {
+  background: #e4f6ed;
+}
+
+.purple .stat-icon {
+  background: #f0e8ff;
+}
+
+
+/* Stat Content */
+
+.stat-content p {
+  margin: 0 0 8px;
+
+  color: #687385;
+
+  font-size: 12px;
+}
+
+.stat-content h2 {
+  margin: 0;
+
+  font-size: 28px;
+
+  color: #172033;
+
+  font-weight: 600;
+}
+
+.stat-link {
+  display: inline-block;
+
+  margin-top: 9px;
+
+  font-size: 11px;
+}
+
+.blue .stat-link {
+  color: #1769d2;
+}
+
+.green .stat-link {
+  color: #23945d;
+}
+
+.purple .stat-link {
+  color: #7c4dcc;
+}
+
+
+/* =====================================================
+   LOWER GRID
+===================================================== */
+
+.dashboard-grid {
+  display: grid;
+
+  grid-template-columns: 1.7fr 1fr;
+
+  gap: 20px;
+
+  align-items: stretch;
+}
+
+
+/* =====================================================
+   COMMON CARDS
+===================================================== */
+
+.schedule-card,
+.quick-card {
+  background: #fff;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 11px;
+
+  overflow: hidden;
+
+  box-shadow: 0 3px 12px rgba(30,50,80,0.04);
+}
+
+
+/* =====================================================
+   CARD HEADER
+===================================================== */
+
+.card-header {
+  height: 54px;
+
+  padding: 0 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid #edf1f5;
+}
+
+.card-header h2 {
+  margin: 0;
+
+  color: #1d2939;
+
+  font-size: 15px;
+
+  font-weight: 600;
+}
+
+.card-header a {
+  color: #1769d2;
+
+  font-size: 11px;
+}
+
+
+/* =====================================================
+   APPOINTMENT LIST
+===================================================== */
+
+.appointment-list {
+  padding: 0 20px;
+}
+
+.appointment-row {
+  min-height: 72px;
+
+  display: grid;
+
+  grid-template-columns:
+    90px
+    42px
+    minmax(0, 1fr)
+    85px;
+
+  align-items: center;
+
+  gap: 12px;
+
+  border-bottom: 1px solid #edf1f5;
+}
+
+.appointment-row:last-child {
+  border-bottom: none;
+}
+
+
+/* Time */
+
+.appointment-time strong {
+  display: block;
+
+  color: #1769d2;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+.appointment-time span {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #8994a4;
+
+  font-size: 10px;
+}
+
+
+/* Patient Avatar */
+
+.patient-avatar {
+  width: 38px;
+  height: 38px;
+
+  border-radius: 50%;
+
+  background: #edf2f7;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 19px;
+}
+
+
+/* Patient Info */
+
+.patient-info h4 {
+  margin: 0;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  color: #263746;
+}
+
+.patient-info p {
+  margin: 5px 0 0;
+
+  font-size: 10px;
+
+  color: #7c8796;
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.status {
+  min-width: 68px;
+
+  padding: 6px 9px;
+
+  border-radius: 6px;
+
+  display: inline-flex;
+
+  justify-content: center;
+  align-items: center;
+
+  font-size: 10px;
+
+  font-weight: 500;
+}
+
+.status.confirmed {
+  background: #e9f8ef;
+
+  color: #218b55;
+}
+
+.status.pending {
+  background: #fff5df;
+
+  color: #d38a12;
+}
+
+.status.completed {
+  background: #eaf1ff;
+
+  color: #276bc2;
+}
+
+.status.cancelled {
+  background: #feecec;
+
+  color: #d14343;
+}
+
+
+/* =====================================================
+   EMPTY SCHEDULE
+===================================================== */
+
+.empty-schedule {
+  min-height: 210px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+}
+
+.empty-schedule > div {
+  font-size: 30px;
+
+  margin-bottom: 10px;
+}
+
+.empty-schedule h3 {
+  margin: 0;
+
+  color: #344054;
+
+  font-size: 14px;
+}
+
+.empty-schedule p {
+  margin: 5px 0 0;
+
+  color: #98a2b3;
+
+  font-size: 11px;
+}
+
+
+/* =====================================================
+   QUICK ACTIONS
+===================================================== */
+
+.quick-grid {
+  padding: 16px;
+
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 14px;
+}
+
+.quick-action {
+  min-height: 130px;
+
+  border-radius: 9px;
+
+  border: 1px solid #e3e9f0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 14px;
+
+  transition: 0.2s ease;
+}
+
+.quick-action span {
+  font-size: 28px;
+
+  line-height: 1;
+}
+
+.quick-action strong {
+  font-size: 11px;
+
+  font-weight: 500;
+}
+
+
+/* Blue */
+
+.blue-action {
+  background: linear-gradient(
+    145deg,
+    #f8fbff,
+    #eef5ff
+  );
+
+  color: #1769d2;
+}
+
+.blue-action:hover {
+  border-color: #b9d3f5;
+
+  transform: translateY(-2px);
+}
+
+
+/* Green */
+
+.green-action {
+  background: linear-gradient(
+    145deg,
+    #f8fdf9,
+    #eefaf3
+  );
+
+  color: #23945d;
+}
+
+.green-action:hover {
+  border-color: #b8dfca;
+
+  transform: translateY(-2px);
+}
+
+
+/* Purple */
+
+.purple-action {
+  background: linear-gradient(
+    145deg,
+    #fcfaff,
+    #f5efff
+  );
+
+  color: #8150cb;
+}
+
+.purple-action:hover {
+  border-color: #d8c4f2;
+
+  transform: translateY(-2px);
+}
+
+
+/* Orange */
+
+.orange-action {
+  background: linear-gradient(
+    145deg,
+    #fffdf9,
+    #fff6e9
+  );
+
+  color: #e68d20;
+}
+
+.orange-action:hover {
+  border-color: #f0d2a5;
+
+  transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 1100px) {
+
+  .doctor-sidebar {
+    width: 220px;
+  }
+
+  .doctor-main {
+    width: calc(100% - 220px);
+    margin-left: 220px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+@media (max-width: 850px) {
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-heading {
+    align-items: flex-start;
+    flex-direction: column;
+
+    gap: 15px;
+  }
+
+  .date-card {
+    width: 100%;
+  }
+}
+
+
+@media (max-width: 650px) {
+
+  .doctor-sidebar {
+    position: relative;
+
+    width: 100%;
+    height: auto;
+
+    min-height: auto;
+  }
+
+  .doctor-main {
+    width: 100%;
+
+    margin-left: 0;
+  }
+
+  .doctor-dashboard {
+    display: block;
+  }
+
+  .doctor-nav {
+    flex-direction: row;
+
+    flex-wrap: wrap;
+  }
+
+  .nav-item {
+    flex: 1 1 140px;
+  }
+
+  .dashboard-content {
+    padding: 18px 14px;
+  }
+
+  .doctor-topbar {
+    padding: 0 15px;
+  }
+}
+
+
+@media (max-width: 480px) {
+
+  .appointment-row {
+    grid-template-columns: 65px 38px 1fr;
+
+    gap: 8px;
+
+    padding: 12px 0;
+  }
+
+  .appointment-row > div:last-child {
+    grid-column: 3;
+  }
+
+  .quick-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-action {
+    min-height: 100px;
+  }
+}

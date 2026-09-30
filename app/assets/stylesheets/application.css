@@ -1,0 +1,571 @@
+/* =========================================
+   GLOBAL RESET
+========================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+/* =========================================
+   REGISTRATION PAGE BACKGROUND
+========================================= */
+
+.registration-page {
+  min-height: 100vh;
+  width: 100%;
+
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(35, 0, 70, 0.62) 0%,
+      rgba(40, 10, 80, 0.35) 48%,
+      rgba(0, 30, 45, 0.30) 100%
+    ),
+    url("doctor.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  overflow: hidden;
+}
+
+
+/* =========================================
+   NAVBAR
+========================================= */
+
+.hospital-navbar {
+  height: 75px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 45px;
+
+  position: relative;
+  z-index: 10;
+}
+
+
+.hospital-logo {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  color: white;
+
+  font-size: 28px;
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+
+.logo-icon {
+  font-size: 28px;
+}
+
+
+/* =========================================
+   NAV LINKS
+========================================= */
+
+.nav-links {
+  display: flex;
+  align-items: center;
+
+  gap: 40px;
+}
+
+
+.nav-links a {
+  color: white;
+
+  text-decoration: none;
+
+  font-size: 16px;
+  font-weight: 500;
+
+  letter-spacing: 1px;
+
+  transition: all 0.3s ease;
+}
+
+
+.nav-links a:hover {
+  color: #d5a5ff;
+}
+
+
+/* =========================================
+   MAIN WRAPPER
+========================================= */
+
+.registration-wrapper {
+  min-height: calc(100vh - 75px);
+
+  display: flex;
+  align-items: center;
+
+  position: relative;
+}
+
+
+/* =========================================
+   WELCOME SECTION
+========================================= */
+
+.welcome-section {
+  width: 35%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  z-index: 2;
+}
+
+
+.welcome-content {
+  text-align: center;
+
+  color: white;
+
+  transform: translateY(-10px);
+}
+
+
+.rocket-icon {
+  font-size: 85px;
+
+  margin-bottom: 15px;
+
+  filter: drop-shadow(
+    0 10px 15px rgba(0, 0, 0, 0.35)
+  );
+}
+
+
+.welcome-content h2 {
+  font-size: 42px;
+
+  font-weight: 400;
+
+  letter-spacing: 1px;
+
+  text-shadow:
+    0 3px 10px rgba(0, 0, 0, 0.5);
+}
+
+
+/* =========================================
+   REGISTRATION CARD
+   FULLY TRANSPARENT
+========================================= */
+
+.registration-card {
+  width: 65%;
+  min-height: 600px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 40px 65px;
+
+  position: relative;
+
+  /* REMOVE ALL CARD EFFECTS */
+
+  background: transparent !important;
+
+  border: none !important;
+
+  outline: none !important;
+
+  box-shadow: none !important;
+
+  backdrop-filter: none !important;
+
+  -webkit-backdrop-filter: none !important;
+
+  border-radius: 0 !important;
+}
+
+
+/* =========================================
+   REGISTRATION CONTENT
+========================================= */
+
+.registration-content {
+  width: 100%;
+
+  max-width: 720px;
+
+  margin-left: auto;
+
+  padding: 10px 20px;
+
+  background: transparent !important;
+
+  border: none !important;
+
+  box-shadow: none !important;
+
+  outline: none !important;
+}
+
+
+/* =========================================
+   REGISTER AS PATIENT TITLE
+   NO BACKGROUND / NO BORDER
+========================================= */
+
+.registration-content h1 {
+  margin: 0 0 25px;
+
+  padding: 0;
+
+  text-align: center;
+
+  background: transparent !important;
+
+  border: none !important;
+
+  outline: none !important;
+
+  box-shadow: none !important;
+
+  color: white;
+
+  font-size: 32px;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  text-shadow:
+    0 3px 10px rgba(0, 0, 0, 0.55);
+}
+
+
+/* =========================================
+   ROLE TABS
+========================================= */
+
+.role-tabs {
+  width: 200px;
+  height: 40px;
+
+  display: flex;
+
+  margin: 0 auto 35px;
+
+  border-radius: 25px;
+
+  overflow: hidden;
+
+  background: rgba(92, 10, 180, 0.90);
+
+  border: none;
+
+  box-shadow:
+    0 5px 18px rgba(0, 0, 0, 0.30);
+}
+
+
+.role-tab {
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+
+.role-tab:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+
+.role-tab.active {
+  background: white;
+
+  color: #6500d8;
+
+  border-radius: 25px;
+
+  box-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.20);
+}
+
+
+/* =========================================
+   FORM ROW
+========================================= */
+
+.form-row {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 22px;
+
+  margin-bottom: 20px;
+}
+
+
+/* =========================================
+   INPUT FIELDS
+========================================= */
+
+.form-group input {
+  width: 100%;
+
+  height: 56px;
+
+  padding: 0 18px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  outline: none;
+
+  background: rgba(255, 255, 255, 0.95);
+
+  color: #333;
+
+  font-size: 15px;
+
+  box-shadow:
+    0 5px 18px rgba(0, 0, 0, 0.18);
+
+  transition:
+    border 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+
+
+.form-group input::placeholder {
+  color: #7d8790;
+
+  font-size: 14px;
+}
+
+
+.form-group input:focus {
+  background: white;
+
+  box-shadow:
+    0 0 0 3px rgba(133, 50, 255, 0.25),
+    0 7px 22px rgba(0, 0, 0, 0.22);
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================
+   GENDER SECTION
+========================================= */
+
+.gender-row {
+  display: flex;
+
+  align-items: center;
+
+  gap: 25px;
+
+  margin-top: 5px;
+
+  color: white;
+}
+
+
+.gender-row label {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  color: white;
+
+  font-size: 15px;
+
+  cursor: pointer;
+
+  text-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+
+.gender-row input {
+  width: 17px;
+
+  height: 17px;
+
+  accent-color: #7b19e6;
+
+  cursor: pointer;
+}
+
+
+/* =========================================
+   LOGIN + REGISTER SAME ROW
+========================================= */
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  margin-top: 25px;
+}
+
+
+/* LOGIN BUTTON */
+
+.login-link {
+  margin-top: 0;
+}
+
+.login-link a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 210px;
+  height: 55px;
+
+  border-radius: 30px;
+
+  background: rgba(95, 0, 190, 0.35);
+
+  border: 1px solid rgba(170, 100, 255, 0.8);
+
+  color: white;
+
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  transition: all 0.3s ease;
+
+  backdrop-filter: blur(8px);
+}
+
+.login-link a:hover {
+  background: linear-gradient(
+    135deg,
+    #8d20ff,
+    #4f00c8
+  );
+
+  transform: translateY(-2px);
+
+  color: white;
+
+  text-decoration: none;
+}
+
+
+/* =========================================
+   REGISTER BUTTON - SAME STYLE
+========================================= */
+
+.register-action {
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+}
+
+.register-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 190px;
+  height: 50px;
+
+  border: 1px solid rgba(170, 100, 255, 0.8);
+  border-radius: 30px;
+
+  background: rgba(95, 0, 190, 0.45);
+
+  color: white;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  box-shadow:
+    0 6px 20px rgba(80, 0, 180, 0.30);
+
+  transition: all 0.3s ease;
+}
+
+.register-btn:hover {
+  background: linear-gradient(
+    135deg,
+    #8d20ff,
+    #4f00c8
+  );
+
+  border-color: transparent;
+
+  color: white;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 25px rgba(94, 0, 200, 0.50);
+}
+
+/* MOBILE */
+
+@media (max-width: 550px) {
+
+  .form-actions {
+    flex-direction: column;
+    gap: 15px;
+
+    align-items: stretch;
+  }
+
+  .login-link,
+  .register-action {
+    width: 100%;
+  }
+
+  .login-link a,
+  .register-btn {
+    width: 100%;
+  }
+
+}

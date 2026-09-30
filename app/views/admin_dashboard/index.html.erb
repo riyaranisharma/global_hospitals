@@ -1,0 +1,458 @@
+<div class="admin-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="admin-sidebar">
+
+    <div class="hospital-logo">
+      <div class="logo-icon">
+        +
+      </div>
+
+      <div>
+        <h2>PARAS HOSPITAL</h2>
+        <span>Care • Compassion • Health</span>
+      </div>
+    </div>
+
+    <nav class="admin-nav">
+
+      <%= link_to admin_dashboard_path, class: "nav-item active" do %>
+        <span class="nav-icon">⌂</span>
+        <span>Dashboard</span>
+      <% end %>
+
+      <%= link_to admin_doctors_path, class: "nav-item" do %>
+        <span class="nav-icon">♟</span>
+        <span>Doctors</span>
+        <span class="nav-arrow">›</span>
+      <% end %>
+
+      <%= link_to admin_patients_path, class: "nav-item" do %>
+        <span class="nav-icon">♟</span>
+        <span>Patients</span>
+        <span class="nav-arrow">›</span>
+      <% end %>
+
+      <%= link_to admin_appointments_path, class: "nav-item" do %>
+        <span class="nav-icon">▣</span>
+        <span>Appointments</span>
+        <span class="nav-arrow">›</span>
+      <% end %>
+
+      <%= link_to admin_medical_records_path, class: "nav-item" do %>
+        <span class="nav-icon">▤</span>
+        <span>Medical Records</span>
+        <span class="nav-arrow">›</span>
+      <% end %>
+
+      <%= link_to admin_lab_reports_path, class: "nav-item" do %>
+        <span class="nav-icon">⚗</span>
+        <span>Lab Reports</span>
+        <span class="nav-arrow">›</span>
+      <% end %>
+
+      <%= link_to admin_bills_path, class: "nav-item" do %>
+        <span class="nav-icon">▣</span>
+        <span>Billing</span>
+        <span class="nav-arrow">›</span>
+      <% end %>
+
+      <%= link_to admin_reports_path, class: "nav-item" do %>
+        <span class="nav-icon">▥</span>
+        <span>Reports</span>
+        <span class="nav-arrow">›</span>
+      <% end %>
+
+      <%= link_to "#", class: "nav-item" do %>
+        <span class="nav-icon">⚙</span>
+        <span>Settings</span>
+        <span class="nav-arrow">›</span>
+      <% end %>
+
+      <%= button_to logout_path,
+          method: :delete,
+          class: "nav-item logout-btn" do %>
+        <span class="nav-icon">↪</span>
+        <span>Logout</span>
+      <% end %>
+
+    </nav>
+
+    <div class="sidebar-footer">
+      <strong>♥ Global Hospitals</strong>
+      <small>Admin Portal v1.0</small>
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN CONTENT -->
+  <main class="admin-main">
+
+    <!-- HEADER -->
+    <header class="admin-header">
+
+      <button class="menu-btn">☰</button>
+
+      <div class="search-box">
+        <input type="text" placeholder="Search here...">
+        <span>⌕</span>
+      </div>
+
+      <div class="header-right">
+
+        <div class="notification">
+          🔔
+          <span>3</span>
+        </div>
+
+        <div class="admin-profile">
+          <div class="profile-avatar">
+            👤
+          </div>
+
+          <div>
+            <strong>
+              <%= current_user&.first_name || "Admin" %>
+            </strong>
+
+            <small>System Administrator</small>
+          </div>
+
+          <span>⌄</span>
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- DASHBOARD CONTENT -->
+    <section class="dashboard-content">
+
+      <div class="dashboard-heading">
+
+        <div>
+          <h1>Admin Dashboard</h1>
+
+          <p>
+            Welcome back, Admin! Here's what's happening
+            at your hospital today.
+          </p>
+        </div>
+
+        <div class="dashboard-date">
+          📅 <%= Date.current.strftime("%d %b %Y") %>
+        </div>
+
+      </div>
+
+
+      <!-- STATISTICS -->
+      <div class="stats-grid">
+
+        <%= link_to admin_doctors_path, class: "stat-card doctors-card" do %>
+          <div class="stat-icon">♟</div>
+
+          <div>
+            <span>Total Doctors</span>
+            <h2><%= @total_doctors %></h2>
+            <small>↑ Active doctors</small>
+          </div>
+        <% end %>
+
+
+        <%= link_to admin_patients_path, class: "stat-card patients-card" do %>
+          <div class="stat-icon">♟</div>
+
+          <div>
+            <span>Total Patients</span>
+            <h2><%= @total_patients %></h2>
+            <small>↑ Registered patients</small>
+          </div>
+        <% end %>
+
+
+        <%= link_to admin_appointments_path, class: "stat-card appointments-card" do %>
+          <div class="stat-icon">▣</div>
+
+          <div>
+            <span>Total Appointments</span>
+            <h2><%= @total_appointments %></h2>
+            <small>↑ All appointments</small>
+          </div>
+        <% end %>
+
+
+        <div class="stat-card records-card">
+          <div class="stat-icon">▤</div>
+
+          <div>
+            <span>Medical Records</span>
+            <h2><%= @total_medical_records %></h2>
+            <small>↑ Patient records</small>
+          </div>
+        </div>
+
+
+        <div class="stat-card lab-card">
+          <div class="stat-icon">⚗</div>
+
+          <div>
+            <span>Lab Reports</span>
+            <h2><%= @total_lab_reports %></h2>
+            <small>↑ Laboratory reports</small>
+          </div>
+        </div>
+
+
+        <div class="stat-card billing-card">
+          <div class="stat-icon">₹</div>
+
+          <div>
+            <span>Total Billing</span>
+            <h2>₹ 2,48,750</h2>
+            <small>↑ Hospital revenue</small>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- CHART + ACTIVITY -->
+      <div class="dashboard-grid">
+
+        <!-- PATIENT OVERVIEW -->
+        <div class="dashboard-card patient-overview">
+
+          <div class="card-header">
+            <h3>Patients Overview</h3>
+
+            <select>
+              <option>Last 7 Days</option>
+              <option>Last 30 Days</option>
+              <option>This Year</option>
+            </select>
+          </div>
+
+          <div class="chart">
+
+            <div class="chart-y">
+              <span>50</span>
+              <span>40</span>
+              <span>30</span>
+              <span>20</span>
+              <span>10</span>
+              <span>0</span>
+            </div>
+
+            <div class="chart-area">
+
+              <div class="grid-line"></div>
+              <div class="grid-line"></div>
+              <div class="grid-line"></div>
+              <div class="grid-line"></div>
+              <div class="grid-line"></div>
+
+              <svg viewBox="0 0 700 250"
+                   preserveAspectRatio="none">
+
+                <polyline
+                  points="0,190 110,150 220,165 330,105 440,120 550,100 700,35"
+                  fill="none"
+                  stroke="#1976d2"
+                  stroke-width="4"
+                />
+
+                <circle cx="0" cy="190" r="5"/>
+                <circle cx="110" cy="150" r="5"/>
+                <circle cx="220" cy="165" r="5"/>
+                <circle cx="330" cy="105" r="5"/>
+                <circle cx="440" cy="120" r="5"/>
+                <circle cx="550" cy="100" r="5"/>
+                <circle cx="700" cy="35" r="5"/>
+
+              </svg>
+
+              <div class="chart-labels">
+                <span>10 Sep</span>
+                <span>11 Sep</span>
+                <span>12 Sep</span>
+                <span>13 Sep</span>
+                <span>14 Sep</span>
+                <span>15 Sep</span>
+                <span>16 Sep</span>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- RECENT ACTIVITY -->
+        <div class="dashboard-card activity-card">
+
+          <div class="card-header">
+            <h3>Recent Activity</h3>
+            <a href="#">View All</a>
+          </div>
+
+          <div class="activity-list">
+
+            <div class="activity-item">
+              <div class="activity-icon">+</div>
+
+              <div>
+                <strong>New patient registered</strong>
+                <p>Patient registration completed</p>
+              </div>
+
+              <small>2 hours ago</small>
+            </div>
+
+
+            <div class="activity-item">
+              <div class="activity-icon">♟</div>
+
+              <div>
+                <strong>New doctor added</strong>
+                <p>Doctor profile created</p>
+              </div>
+
+              <small>4 hours ago</small>
+            </div>
+
+
+            <div class="activity-item">
+              <div class="activity-icon">▣</div>
+
+              <div>
+                <strong>Appointment confirmed</strong>
+                <p>Patient appointment confirmed</p>
+              </div>
+
+              <small>5 hours ago</small>
+            </div>
+
+
+            <div class="activity-item">
+              <div class="activity-icon">⚗</div>
+
+              <div>
+                <strong>Lab report uploaded</strong>
+                <p>New medical report uploaded</p>
+              </div>
+
+              <small>6 hours ago</small>
+            </div>
+
+
+            <div class="activity-item">
+              <div class="activity-icon">₹</div>
+
+              <div>
+                <strong>Payment received</strong>
+                <p>Hospital bill payment received</p>
+              </div>
+
+              <small>7 hours ago</small>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- RECENT DOCTORS -->
+      <div class="dashboard-card recent-doctors">
+
+        <div class="card-header">
+
+          <h3>Recent Doctors</h3>
+
+          <%= link_to "View All Doctors", admin_doctors_path,
+              class: "view-all-btn" %>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+          <table>
+
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Specialization</th>
+                <th>Department</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              <% @recent_doctors.each_with_index do |doctor, index| %>
+
+                <tr>
+
+                  <td>D<%= sprintf("%03d", index + 1) %></td>
+
+                  <td>
+                    <strong>
+                      Dr. <%= doctor.first_name %>
+                      <%= doctor.last_name %>
+                    </strong>
+                  </td>
+
+                  <td>Doctor</td>
+
+                  <td>General Medicine</td>
+
+                  <td><%= doctor.email %></td>
+
+                  <td>
+                    <span class="status active-status">
+                      Active
+                    </span>
+                  </td>
+
+                  <td>
+                    <%= link_to "View", admin_doctors_path,
+                        class: "view-link" %>
+                  </td>
+
+                </tr>
+
+              <% end %>
+
+
+              <% if @recent_doctors.empty? %>
+
+                <tr>
+                  <td colspan="7" class="empty-state">
+                    No doctors found.
+                  </td>
+                </tr>
+
+              <% end %>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>

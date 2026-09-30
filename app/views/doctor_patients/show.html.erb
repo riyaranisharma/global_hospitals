@@ -1,0 +1,151 @@
+<div class="patient-details-page">
+
+  <!-- HEADER -->
+  <div class="patient-details-header">
+
+    <div>
+      <%= link_to "← Back to Patients",
+          doctor_patients_path,
+          class: "back-link" %>
+
+      <h1>Patient Details</h1>
+      <p>Complete patient information</p>
+    </div>
+
+  </div>
+
+
+  <!-- PROFILE CARD -->
+  <div class="patient-profile-card">
+
+    <div class="patient-large-avatar">
+      👤
+    </div>
+
+    <div class="patient-profile-info">
+
+      <h2>
+        <%= @patient.first_name %>
+        <%= @patient.last_name %>
+      </h2>
+
+      <span class="patient-status">
+        Active
+      </span>
+
+      <p>
+        📧 <%= @patient.email %>
+      </p>
+
+      <p>
+        📞 <%= @patient.phone %>
+      </p>
+
+      <% if @patient.gender.present? %>
+        <p>
+          👤 <%= @patient.gender %>
+        </p>
+      <% end %>
+
+    </div>
+
+  </div>
+
+
+  <!-- APPOINTMENT SUMMARY -->
+  <div class="patient-summary-grid">
+
+    <div class="summary-card">
+      <p>Total Appointments</p>
+      <h2>
+        <%= @appointments.count %>
+      </h2>
+    </div>
+
+    <div class="summary-card">
+      <p>Completed</p>
+      <h2>
+        <%= @appointments.where(status: "Completed").count %>
+      </h2>
+    </div>
+
+    <div class="summary-card">
+      <p>Upcoming</p>
+      <h2>
+        <%= @appointments
+            .where("appointment_date >= ?", Date.current)
+            .count %>
+      </h2>
+    </div>
+
+    <div class="summary-card">
+      <p>Cancelled</p>
+      <h2>
+        <%= @appointments.where(status: "Cancelled").count %>
+      </h2>
+    </div>
+
+  </div>
+
+
+  <!-- APPOINTMENTS -->
+  <div class="patient-appointments-card">
+
+    <div class="card-header">
+      <h2>Recent Appointments</h2>
+    </div>
+
+    <% if @appointments.any? %>
+
+      <table class="patient-appointments-table">
+
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Department</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <% @appointments.each do |appointment| %>
+
+            <tr>
+
+              <td>
+                <%= appointment.appointment_date&.strftime("%d %b %Y") || "-" %>
+              </td>
+
+              <td>
+                <%= appointment.appointment_time&.strftime("%I:%M %p") || "-" %>
+              </td>
+
+              <td>
+                <%= appointment.department.presence || "General Medicine" %>
+              </td>
+
+              <td>
+                <span class="appointment-status">
+                  <%= appointment.status.presence || "Pending" %>
+                </span>
+              </td>
+
+            </tr>
+
+          <% end %>
+
+        </tbody>
+
+      </table>
+
+    <% else %>
+
+      <p>No appointments found.</p>
+
+    <% end %>
+
+  </div>
+
+</div>

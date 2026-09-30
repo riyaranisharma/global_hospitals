@@ -1,0 +1,229 @@
+<div class="prescription-page">
+
+  <div class="prescription-header">
+
+    <div>
+      <h1>Prescription Details</h1>
+      <p>Patient prescription information</p>
+    </div>
+
+    <%= link_to "← Back",
+        doctor_prescriptions_path,
+        class: "back-btn" %>
+
+  </div>
+
+
+  <div class="prescription-detail-card">
+
+
+    <!-- HEADER -->
+
+    <div class="prescription-document-header">
+
+      <div>
+
+        <h2>GLOBAL HOSPITALS</h2>
+
+        <p>
+          Medical Prescription
+        </p>
+
+      </div>
+
+      <div class="prescription-date">
+
+        <span>Date</span>
+
+        <strong>
+          <%= @prescription.created_at.strftime("%d %b %Y") %>
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- PATIENT -->
+
+    <div class="detail-section">
+
+      <h3>Patient Information</h3>
+
+
+      <div class="patient-info-grid">
+
+        <div>
+
+          <span>Patient Name</span>
+
+          <strong>
+
+            <%= @prescription.patient.first_name %>
+            <%= @prescription.patient.last_name %>
+
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>Patient ID</span>
+
+          <strong>
+            #<%= @prescription.patient.id %>
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>Doctor</span>
+
+          <strong>
+
+            Dr.
+            <%= @prescription.doctor.first_name %>
+            <%= @prescription.doctor.last_name %>
+
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- DIAGNOSIS -->
+
+    <div class="detail-section">
+
+      <h3>Diagnosis</h3>
+
+      <p class="diagnosis-text">
+        <%= @prescription.diagnosis %>
+      </p>
+
+    </div>
+
+
+    <!-- MEDICINES -->
+
+    <div class="detail-section">
+
+      <h3>Prescribed Medicines</h3>
+
+
+      <div class="medicine-list">
+
+        <% @prescription.prescription_medicines.each_with_index do |medicine, index| %>
+
+          <div class="medicine-detail">
+
+            <div class="medicine-number">
+              <%= index + 1 %>
+            </div>
+
+
+            <div class="medicine-information">
+
+              <h4>
+                <%= medicine.medicine_name %>
+              </h4>
+
+
+              <div class="medicine-meta">
+
+                <span>
+                  <strong>Dosage:</strong>
+                  <%= medicine.dosage %>
+                </span>
+
+                <span>
+                  <strong>Frequency:</strong>
+                  <%= medicine.frequency %>
+                </span>
+
+                <span>
+                  <strong>Duration:</strong>
+                  <%= medicine.duration %>
+                </span>
+
+              </div>
+
+
+              <% if medicine.instructions.present? %>
+
+                <p>
+                  <strong>Instructions:</strong>
+                  <%= medicine.instructions %>
+                </p>
+
+              <% end %>
+
+            </div>
+
+          </div>
+
+        <% end %>
+
+      </div>
+
+    </div>
+
+
+    <!-- NOTES -->
+
+    <% if @prescription.notes.present? %>
+
+      <div class="detail-section">
+
+        <h3>Additional Notes</h3>
+
+        <p class="notes-text">
+          <%= @prescription.notes %>
+        </p>
+
+      </div>
+
+    <% end %>
+
+
+    <!-- FOOTER -->
+
+    <div class="prescription-footer">
+
+      <div>
+
+        <span>Prescription Status</span>
+
+        <strong class="prescription-status active">
+          <%= @prescription.status.capitalize %>
+        </strong>
+
+      </div>
+
+
+      <div class="doctor-signature">
+
+        <strong>
+          Dr.
+          <%= @prescription.doctor.first_name %>
+          <%= @prescription.doctor.last_name %>
+        </strong>
+
+        <span>
+          Doctor
+        </span>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</div>

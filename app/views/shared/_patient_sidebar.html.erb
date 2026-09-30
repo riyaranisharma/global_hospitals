@@ -1,0 +1,106 @@
+<div class="patient-dashboard">
+
+  <!-- =====================================================
+       SIDEBAR
+  ====================================================== -->
+
+  <aside class="dashboard-sidebar">
+
+    <div class="hospital-brand">
+
+      <div class="hospital-logo">
+        🏥
+      </div>
+
+      <h2>PARAS HOSPITAL</h2>
+
+      <p>Patient Portal</p>
+
+    </div>
+
+
+    <!-- NAVIGATION -->
+
+    <nav class="dashboard-nav">
+
+      <%= link_to patient_dashboard_path,
+          class: "dashboard-nav-link active" do %>
+
+        <span class="nav-icon">🏠</span>
+        <span>Dashboard</span>
+
+      <% end %>
+
+
+      <%= link_to patient_profile_path,
+          class: "dashboard-nav-link" do %>
+
+        <span class="nav-icon">👤</span>
+        <span>My Profile</span>
+
+      <% end %>
+
+
+      <%= link_to appointments_path,
+          class: "dashboard-nav-link" do %>
+
+        <span class="nav-icon">📅</span>
+        <span>Appointments</span>
+
+      <% end %>
+
+
+      <%= link_to medical_records_path,
+          class: "dashboard-nav-link" do %>
+
+        <span class="nav-icon">📋</span>
+        <span>Medical Records</span>
+
+      <% end %>
+
+
+      <%= link_to lab_reports_path,
+          class: "dashboard-nav-link" do %>
+
+        <span class="nav-icon">🧪</span>
+        <span>Lab Reports</span>
+
+      <% end %>
+
+
+      <div class="nav-divider"></div>
+
+
+      <%= link_to logout_path,
+          data: { turbo_method: :delete },
+          class: "dashboard-nav-link logout-link" do %>
+
+        <span class="nav-icon">🚪</span>
+        <span>Logout</span>
+
+      <% end %>
+
+    </nav>
+
+
+    <!-- SUPPORT -->
+
+    <div class="support-card">
+
+      <div class="support-icon">
+        🎧
+      </div>
+
+      <h3>Need Help?</h3>
+
+      <p>
+        Our support team is available 24/7
+      </p>
+
+      <strong>
+        +91 98765 43210
+      </strong>
+
+    </div>
+
+  </aside>

@@ -1,0 +1,187 @@
+<div class="profile-page">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div>
+      <h1>Patient Profile</h1>
+      <p>Complete patient information</p>
+    </div>
+
+    <% if @patient %>
+      <%= link_to "✏️ Edit Profile",
+          edit_patient_profile_path(@patient),
+          class: "edit-profile-btn" %>
+    <% end %>
+  </div>
+
+
+  <!-- PROFILE SUMMARY -->
+  <div class="profile-summary-card">
+
+    <div class="profile-avatar-large">
+      <%= @patient&.first_name&.first&.upcase || "P" %>
+    </div>
+
+    <div class="profile-summary-info">
+      <h2>
+        <%= @patient&.first_name || "Patient" %>
+        <%= @patient&.last_name || "" %>
+      </h2>
+
+      <p>
+        <strong>Email:</strong>
+        <%= @patient&.email || "Not Added" %>
+      </p>
+
+      <p>
+        <strong>Phone:</strong>
+        <%= @patient&.phone || "Not Added" %>
+      </p>
+
+      <p class="patient-status">
+        🟢 Active Patient
+      </p>
+    </div>
+
+  </div>
+
+
+  <!-- PERSONAL INFORMATION -->
+  <div class="profile-section">
+
+    <h2>👤 Personal Information</h2>
+
+    <div class="profile-grid">
+
+      <div class="info-box">
+        <label>First Name</label>
+        <p><%= @patient&.first_name || "Not Added" %></p>
+      </div>
+
+      <div class="info-box">
+        <label>Last Name</label>
+        <p><%= @patient&.last_name || "Not Added" %></p>
+      </div>
+
+      <div class="info-box">
+        <label>Gender</label>
+        <p><%= @patient&.gender || "Not Added" %></p>
+      </div>
+
+      <div class="info-box">
+        <label>Patient ID</label>
+        <p>
+          <% if @patient %>
+            PAT-<%= @patient.id.to_s.rjust(4, "0") %>
+          <% else %>
+            Not Added
+          <% end %>
+        </p>
+      </div>
+
+      <div class="info-box">
+        <label>Blood Group</label>
+        <p>Not Added</p>
+      </div>
+
+      <div class="info-box">
+        <label>Date of Birth</label>
+        <p>Not Added</p>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- CONTACT INFORMATION -->
+  <div class="profile-section">
+
+    <h2>📞 Contact Information</h2>
+
+    <div class="profile-grid">
+
+      <div class="info-box">
+        <label>Email Address</label>
+        <p><%= @patient&.email || "Not Added" %></p>
+      </div>
+
+      <div class="info-box">
+        <label>Phone Number</label>
+        <p><%= @patient&.phone || "Not Added" %></p>
+      </div>
+
+      <div class="info-box">
+        <label>Address</label>
+        <p>Not Added</p>
+      </div>
+
+      <div class="info-box">
+        <label>City</label>
+        <p>Not Added</p>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- MEDICAL INFORMATION -->
+  <div class="profile-section">
+
+    <h2>🏥 Medical Information</h2>
+
+    <div class="profile-grid">
+
+      <div class="info-box">
+        <label>Blood Group</label>
+        <p>Not Added</p>
+      </div>
+
+      <div class="info-box">
+        <label>Allergies</label>
+        <p>Not Added</p>
+      </div>
+
+      <div class="info-box">
+        <label>Medical Conditions</label>
+        <p>Not Added</p>
+      </div>
+
+      <div class="info-box">
+        <label>Current Medication</label>
+        <p>Not Added</p>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- EMERGENCY CONTACT -->
+  <div class="profile-section">
+
+    <h2>🚨 Emergency Contact</h2>
+
+    <div class="profile-grid">
+
+      <div class="info-box">
+        <label>Contact Name</label>
+        <p>Not Added</p>
+      </div>
+
+      <div class="info-box">
+        <label>Relationship</label>
+        <p>Not Added</p>
+      </div>
+
+      <div class="info-box">
+        <label>Emergency Phone</label>
+        <p>Not Added</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

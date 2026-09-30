@@ -1,0 +1,344 @@
+<div class="patient-dashboard">
+
+  <%= render "shared/patient_sidebar" %>
+
+  <main class="dashboard-main appointment-page">
+
+    <!-- Header -->
+    <div class="dashboard-header">
+
+      <div>
+        <h1>My Appointments</h1>
+        <p>Manage your appointments and health visits easily</p>
+      </div>
+
+      <div class="header-profile">
+
+        <div class="notification">
+          🔔
+        </div>
+
+        <div class="user-avatar">
+          P
+        </div>
+
+        <div>
+          <strong>Patient</strong>
+          <small>Patient</small>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- Statistics -->
+    <div class="appointment-stats">
+
+      <!-- Total -->
+      <div class="appointment-stat-card">
+
+        <div class="appointment-stat-icon">
+          📅
+        </div>
+
+        <div>
+          <span>Total Appointments</span>
+
+          <h2>
+            <%= @total_appointments %>
+          </h2>
+
+          <small>All time</small>
+        </div>
+
+      </div>
+
+
+      <!-- Upcoming -->
+      <div class="appointment-stat-card">
+
+        <div class="appointment-stat-icon green">
+          ✓
+        </div>
+
+        <div>
+          <span>Upcoming</span>
+
+          <h2>
+            <%= @upcoming_appointments %>
+          </h2>
+
+          <small>Upcoming visits</small>
+        </div>
+
+      </div>
+
+
+      <!-- Pending -->
+      <div class="appointment-stat-card">
+
+        <div class="appointment-stat-icon orange">
+          ◷
+        </div>
+
+        <div>
+          <span>Pending</span>
+
+          <h2>
+            <%= @pending_appointments %>
+          </h2>
+
+          <small>Awaiting confirmation</small>
+        </div>
+
+      </div>
+
+
+      <!-- Cancelled -->
+      <div class="appointment-stat-card">
+
+        <div class="appointment-stat-icon red">
+          ×
+        </div>
+
+        <div>
+          <span>Cancelled</span>
+
+          <h2>
+            <%= @cancelled_appointments %>
+          </h2>
+
+          <small>Appointments</small>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- Quick Actions -->
+    <div class="appointment-actions">
+
+      <%= link_to new_appointment_path,
+          class: "appointment-action" do %>
+
+        <div class="action-icon">
+          📅
+        </div>
+
+        <div>
+          <strong>Book Appointment</strong>
+          <span>Schedule an appointment with a doctor</span>
+        </div>
+
+        <b>›</b>
+
+      <% end %>
+
+
+      <%= link_to appointments_path,
+          class: "appointment-action" do %>
+
+        <div class="action-icon">
+          📅
+        </div>
+
+        <div>
+          <strong>View Calendar</strong>
+          <span>See your appointments calendar</span>
+        </div>
+
+        <b>›</b>
+
+      <% end %>
+
+    </div>
+
+
+    <!-- Appointment Header -->
+    <div class="appointments-heading">
+
+      <div>
+        <h2>My Appointments</h2>
+        <p>View and manage all your appointments</p>
+      </div>
+
+      <%= link_to new_appointment_path,
+          class: "book-appointment-btn" do %>
+
+        + Book Appointment
+
+      <% end %>
+
+    </div>
+
+
+    <!-- Appointment Table -->
+    <div class="appointments-table-card">
+
+      <table class="appointments-table">
+
+        <thead>
+
+          <tr>
+            <th>Doctor</th>
+            <th>Department</th>
+            <th>Date & Time</th>
+            <th>Status</th>
+            <th>Details</th>
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+          <% if @appointments.any? %>
+
+            <% @appointments.each do |appointment| %>
+
+              <tr>
+
+                <!-- Doctor -->
+                <td>
+
+                  <div class="doctor-cell">
+
+                    <div class="doctor-image">
+                      👨‍⚕️
+                    </div>
+
+                    <div>
+
+                      <strong>
+                        <%= appointment.doctor_name.presence || "Doctor" %>
+                      </strong>
+
+                      <small>
+                        <%= appointment.department.presence || "Hospital Department" %>
+                      </small>
+
+                    </div>
+
+                  </div>
+
+                </td>
+
+
+                <!-- Department -->
+                <td>
+
+                  <%= appointment.department.presence || "N/A" %>
+
+                </td>
+
+
+                <!-- Date & Time -->
+                <td>
+
+                  <% if appointment.appointment_date.present? %>
+
+                    📅
+                    <%= appointment.appointment_date.strftime("%d %B %Y") %>
+
+                  <% else %>
+
+                    📅 Date not available
+
+                  <% end %>
+
+                  <br>
+
+                  <% if appointment.appointment_time.present? %>
+
+                    ⏰
+                    <%= appointment.appointment_time.strftime("%I:%M %p") %>
+
+                  <% else %>
+
+                    ⏰ Time not available
+
+                  <% end %>
+
+                </td>
+
+
+                <!-- Status -->
+                <td>
+
+                  <% status_class =
+                    case appointment.status
+                    when "Confirmed"
+                      "confirmed"
+                    when "Pending"
+                      "pending"
+                    when "Cancelled"
+                      "cancelled"
+                    when "Completed"
+                      "completed"
+                    else
+                      "pending"
+                    end
+                  %>
+
+                  <span class="status <%= status_class %>">
+
+                    <%= appointment.status.presence || "Pending" %>
+
+                  </span>
+
+                </td>
+
+
+                <!-- Details -->
+                <td>
+
+                  <%= link_to "View Details",
+                      appointment_path(appointment),
+                      class: "details-btn" %>
+
+                </td>
+
+              </tr>
+
+            <% end %>
+
+
+          <% else %>
+
+            <!-- No appointments -->
+            <tr>
+
+              <td colspan="5"
+                  style="text-align: center; padding: 50px;">
+
+                <div>
+
+                  <h3>No appointments found</h3>
+
+                  <p>
+                    You have not booked any appointments yet.
+                  </p>
+
+                  <%= link_to "Book Appointment",
+                      new_appointment_path,
+                      class: "book-appointment-btn" %>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+          <% end %>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </main>
+
+</div>

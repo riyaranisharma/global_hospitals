@@ -1,0 +1,192 @@
+<div class="registration-page">
+
+  <!-- NAVBAR -->
+  <nav class="hospital-navbar">
+
+    <div class="hospital-logo">
+      <span class="logo-icon">♟</span>
+      <span>PARAS HOSPITAL</span>
+    </div>
+
+    <div class="nav-links">
+      <%= link_to "HOME", root_path, class: "nav-link" %>
+
+      <%= link_to "ABOUT US",
+          about_path,
+          class: "nav-link" %>
+
+      <%= link_to "CONTACT",
+          contact_path,
+          class: "nav-link" %>
+    </div>
+
+  </nav>
+
+
+  <!-- MAIN AREA -->
+  <div class="registration-wrapper">
+
+    <!-- LEFT WELCOME SECTION -->
+    <div class="welcome-section">
+
+      <div class="welcome-content">
+        <div class="rocket-icon">🚀</div>
+        <h2>Welcome</h2>
+      </div>
+
+    </div>
+
+
+    <!-- RIGHT FORM SECTION -->
+    <div class="registration-card">
+
+      <div class="registration-content">
+
+        <!-- DYNAMIC HEADING -->
+        <h1>
+          Register as <%= @role.present? ? @role.capitalize : "Patient" %>
+        </h1>
+
+
+        <!-- ROLE TABS -->
+        <div class="role-tabs">
+
+          <%= link_to "Patient",
+              register_path(role: "patient"),
+              class: "role-tab #{(@role || 'patient') == 'patient' ? 'active' : ''}" %>
+
+          <%= link_to "Doctor",
+              register_path(role: "doctor"),
+              class: "role-tab #{@role == 'doctor' ? 'active' : ''}" %>
+
+          <%= link_to "Admin",
+              register_path(role: "admin"),
+              class: "role-tab #{@role == 'admin' ? 'active' : ''}" %>
+
+        </div>
+
+
+        <!-- REGISTRATION FORM -->
+        <%= form_with model: @user,
+                      url: "/register",
+                      method: :post,
+                      local: true do |form| %>
+
+          <!-- HIDDEN ROLE -->
+          <%= form.hidden_field :role,
+              value: @role || "patient" %>
+
+
+          <!-- ERROR MESSAGES -->
+          <% if @user.errors.any? %>
+            <div class="error-messages">
+
+              <h4>Please fix the following errors:</h4>
+
+              <ul>
+                <% @user.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+
+            </div>
+          <% end %>
+
+
+          <!-- FIRST ROW -->
+          <div class="form-row">
+
+            <div class="form-group">
+              <%= form.text_field :first_name,
+                    placeholder: "First Name",
+                    required: true %>
+            </div>
+
+            <div class="form-group">
+              <%= form.text_field :last_name,
+                    placeholder: "Last Name",
+                    required: true %>
+            </div>
+
+          </div>
+
+
+          <!-- SECOND ROW -->
+          <div class="form-row">
+
+            <div class="form-group">
+              <%= form.email_field :email,
+                    placeholder: "Email",
+                    required: true %>
+            </div>
+
+            <div class="form-group">
+              <%= form.telephone_field :phone,
+                    placeholder: "Phone Number",
+                    required: true %>
+            </div>
+
+          </div>
+
+
+          <!-- THIRD ROW -->
+          <div class="form-row">
+
+            <div class="form-group">
+              <%= form.password_field :password,
+                    placeholder: "Password",
+                    required: true %>
+            </div>
+
+            <div class="form-group">
+              <%= form.password_field :password_confirmation,
+                    placeholder: "Confirm Password",
+                    required: true %>
+            </div>
+
+          </div>
+
+
+          <!-- GENDER -->
+          <div class="gender-row">
+
+            <label>
+              <%= form.radio_button :gender, "male" %>
+              Male
+            </label>
+
+            <label>
+              <%= form.radio_button :gender, "female" %>
+              Female
+            </label>
+
+          </div>
+
+
+          <!-- LOGIN + REGISTER ACTIONS -->
+          <div class="form-actions">
+
+            <!-- ALREADY HAVE ACCOUNT -->
+            <div class="login-link">
+              <%= link_to "Already have an account?",
+                  login_path(role: @role || "patient") %>
+            </div>
+
+
+            <!-- REGISTER BUTTON -->
+            <div class="register-action">
+              <%= form.submit "Register",
+                    class: "register-btn" %>
+            </div>
+
+          </div>
+
+        <% end %>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,187 @@
+<div class="schedule-form-page">
+
+  <div class="form-page-header">
+
+    <div>
+      <h1>Create Schedule</h1>
+      <p>Add your consultation availability</p>
+    </div>
+
+    <%= link_to "← Back",
+        doctor_schedules_path,
+        class: "back-btn" %>
+
+  </div>
+
+
+  <div class="schedule-form-card">
+
+    <%= form_with model: @schedule,
+                  local: true do |form| %>
+
+
+      <% if @schedule.errors.any? %>
+
+        <div class="form-errors">
+
+          <h3>
+            <%= pluralize(@schedule.errors.count, "error") %>
+            prevented this schedule from being saved:
+          </h3>
+
+          <ul>
+
+            <% @schedule.errors.full_messages.each do |message| %>
+
+              <li>
+                <%= message %>
+              </li>
+
+            <% end %>
+
+          </ul>
+
+        </div>
+
+      <% end %>
+
+
+      <div class="form-section">
+
+        <h2>Schedule Information</h2>
+
+
+        <div class="form-grid">
+
+
+          <div class="form-group">
+
+            <%= form.label :day_of_week, "Day" %>
+
+            <%= form.select :day_of_week,
+                [
+                  ["Monday", "Monday"],
+                  ["Tuesday", "Tuesday"],
+                  ["Wednesday", "Wednesday"],
+                  ["Thursday", "Thursday"],
+                  ["Friday", "Friday"],
+                  ["Saturday", "Saturday"],
+                  ["Sunday", "Sunday"]
+                ],
+                { prompt: "Select Day" },
+                class: "form-control" %>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <%= form.label :slot_duration, "Slot Duration" %>
+
+            <%= form.select :slot_duration,
+                [
+                  ["15 Minutes", 15],
+                  ["20 Minutes", 20],
+                  ["30 Minutes", 30],
+                  ["45 Minutes", 45],
+                  ["60 Minutes", 60]
+                ],
+                { prompt: "Select Duration" },
+                class: "form-control" %>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+      <div class="form-section">
+
+        <h2>Consultation Timing</h2>
+
+
+        <div class="form-grid">
+
+
+          <div class="form-group">
+
+            <%= form.label :start_time, "Start Time" %>
+
+            <%= form.time_field :start_time,
+                class: "form-control" %>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <%= form.label :end_time, "End Time" %>
+
+            <%= form.time_field :end_time,
+                class: "form-control" %>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+      <div class="form-section">
+
+        <h2>Break Time</h2>
+
+        <p class="section-description">
+          Break time is optional.
+        </p>
+
+
+        <div class="form-grid">
+
+
+          <div class="form-group">
+
+            <%= form.label :break_start, "Break Start" %>
+
+            <%= form.time_field :break_start,
+                class: "form-control" %>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <%= form.label :break_end, "Break End" %>
+
+            <%= form.time_field :break_end,
+                class: "form-control" %>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+      <div class="form-actions">
+
+        <%= link_to "Cancel",
+            doctor_schedules_path,
+            class: "cancel-btn" %>
+
+
+        <%= form.submit "Create Schedule",
+            class: "save-btn" %>
+
+      </div>
+
+
+    <% end %>
+
+  </div>
+
+</div>

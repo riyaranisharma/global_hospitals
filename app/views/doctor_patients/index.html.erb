@@ -1,0 +1,523 @@
+<div class="doctor-patient-management">
+
+  <!-- ================= HEADER ================= -->
+
+  <div class="doctor-management-header">
+
+    <div class="header-left">
+      <span class="menu-icon">☰</span>
+
+      <h1>Doctor – Patient Management</h1>
+    </div>
+
+    <div class="header-right">
+
+      <span class="notification-icon">♧</span>
+
+      <div class="header-date">
+        <strong><%= Date.current.strftime("%d %b %Y, %A") %></strong>
+        <small><%= Time.current.strftime("%I:%M %p") %></small>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================= STAT CARDS ================= -->
+
+  <div class="doctor-stat-grid">
+
+    <div class="doctor-stat-card blue">
+
+      <div class="stat-icon">
+        👥
+      </div>
+
+      <div>
+        <span>Total Patients</span>
+
+        <strong>
+          <%= @patients.count %>
+        </strong>
+
+        <%= link_to "View all patients →",
+            doctor_patients_path %>
+      </div>
+
+    </div>
+
+
+    <div class="doctor-stat-card green">
+
+      <div class="stat-icon">
+        📅
+      </div>
+
+      <div>
+        <span>Today's Appointments</span>
+
+        <strong>
+          <%= @todays_appointments.count %>
+        </strong>
+
+        <%= link_to "View today's list →",
+            doctor_appointments_path %>
+      </div>
+
+    </div>
+
+
+    <div class="doctor-stat-card purple">
+
+      <div class="stat-icon">
+        👤+
+      </div>
+
+      <div>
+        <span>New Patients (This Month)</span>
+
+        <strong>
+          <%= @new_patients_this_month %>
+        </strong>
+
+        <%= link_to "View new patients →",
+            doctor_patients_path %>
+      </div>
+
+    </div>
+
+
+    <div class="doctor-stat-card yellow">
+
+      <div class="stat-icon">
+        📁
+      </div>
+
+      <div>
+        <span>Total Consultations</span>
+
+        <strong>
+          <%= @total_consultations %>
+        </strong>
+
+        <%= link_to "View reports →",
+            doctor_reports_path %>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================= MAIN CONTENT ================= -->
+
+  <div class="doctor-management-content">
+
+
+    <!-- ================= PATIENT LIST ================= -->
+
+    <div class="patients-list-card">
+
+      <div class="section-heading">
+
+        <h2>My Patients</h2>
+
+      </div>
+
+
+      <div class="patient-search">
+
+        <%= form_with url: doctor_patients_path,
+            method: :get,
+            local: true do |form| %>
+
+          <%= form.text_field :search,
+              value: params[:search],
+              placeholder: "Search patients...",
+              class: "patient-search-input" %>
+
+          <button type="submit">
+            🔍
+          </button>
+
+        <% end %>
+
+      </div>
+
+
+      <div class="patients-list">
+
+        <% if @patients.any? %>
+
+          <% @patients.each do |patient| %>
+
+            <%= link_to doctor_patients_path(patient_id: patient.id),
+                class: "patient-list-item #{'active' if @selected_patient&.id == patient.id}" do %>
+
+              <div class="patient-small-avatar">
+                👤
+              </div>
+
+              <div class="patient-small-info">
+
+                <strong>
+                  <%= patient.first_name %>
+                  <%= patient.last_name %>
+                </strong>
+
+                <small>
+                  ID: P<%= "%04d" % patient.id %>
+                  •
+                  <%= patient.phone.presence || "No phone" %>
+                </small>
+
+              </div>
+
+              <span class="patient-last-date">
+                <%= @patient_last_visits[patient.id]&.strftime("%d %b %Y") || "-" %>
+              </span>
+
+            <% end %>
+
+          <% end %>
+
+        <% else %>
+
+          <div class="empty-patients">
+            <div>👥</div>
+            <h3>No patients found</h3>
+            <p>No patients are currently assigned.</p>
+          </div>
+
+        <% end %>
+
+      </div>
+
+
+      <div class="patient-pagination">
+        <button>‹</button>
+        <button class="active">1</button>
+        <button>2</button>
+        <button>3</button>
+        <span>...</span>
+        <button>26</button>
+        <button>›</button>
+      </div>
+
+    </div>
+
+
+    <!-- ================= PATIENT DETAILS ================= -->
+
+    <div class="patient-details-card">
+
+      <% if @selected_patient.present? %>
+
+        <!-- PROFILE -->
+
+        <div class="patient-profile">
+
+          <div class="patient-large-avatar">
+            👤
+          </div>
+
+
+          <div class="patient-main-info">
+
+            <div class="patient-name-row">
+
+              <h2>
+                <%= @selected_patient.first_name %>
+                <%= @selected_patient.last_name %>
+              </h2>
+
+              <span class="active-badge">
+                Active
+              </span>
+
+            </div>
+
+            <p>
+              ID: P<%= "%04d" % @selected_patient.id %>
+            </p>
+
+            <div class="patient-contact-grid">
+
+              <span>
+                ♀
+                <%= @selected_patient.gender.presence || "Not specified" %>
+              </span>
+
+              <span>
+                ☎
+                <%= @selected_patient.phone.presence || "No phone" %>
+              </span>
+
+              <span>
+                ✉
+                <%= @selected_patient.email %>
+              </span>
+
+              <span>
+                📍
+                <%= @selected_patient.address.presence || "Address not available" %>
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="patient-extra-info">
+
+            <div>
+              <span>Blood Group</span>
+              <strong>
+                <%= @selected_patient.blood_group.presence || "O+" %>
+              </strong>
+            </div>
+
+            <div>
+              <span>Registered On</span>
+              <strong>
+                <%= @selected_patient.created_at.strftime("%d %b %Y") %>
+              </strong>
+            </div>
+
+            <div>
+              <span>Last Visit</span>
+              <strong>
+                <%= @last_visit&.strftime("%d %b %Y") || "-" %>
+              </strong>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- TABS -->
+
+        <div class="patient-tabs">
+
+          <a class="active" href="#overview">
+            Overview
+          </a>
+
+          <%= link_to "Appointments",
+              doctor_appointments_path %>
+
+          <a href="#medical-history">
+            Medical History
+          </a>
+
+          <a href="#prescriptions">
+            Prescriptions
+          </a>
+
+          <a href="#reports">
+            Reports
+          </a>
+
+          <a href="#invoices">
+            Invoices
+          </a>
+
+        </div>
+
+
+        <!-- OVERVIEW -->
+
+        <div class="patient-overview" id="overview">
+
+
+          <!-- SMALL STATS -->
+
+          <div class="patient-mini-stats">
+
+            <div>
+              <span>Total Appointments</span>
+              <strong><%= @patient_appointments.count %></strong>
+            </div>
+
+            <div>
+              <span>Completed</span>
+              <strong>
+                <%= @patient_appointments.where(status: "completed").count %>
+              </strong>
+            </div>
+
+            <div>
+              <span>Upcoming</span>
+              <strong>
+                <%= @patient_appointments
+                    .where("appointment_date >= ?", Date.current)
+                    .where(status: ["pending", "confirmed"])
+                    .count %>
+              </strong>
+            </div>
+
+            <div>
+              <span>Cancelled</span>
+              <strong>
+                <%= @patient_appointments.where(status: "cancelled").count %>
+              </strong>
+            </div>
+
+          </div>
+
+
+          <!-- RECENT APPOINTMENTS -->
+
+          <div class="recent-appointments">
+
+            <div class="subsection-header">
+
+              <h3>Recent Appointments</h3>
+
+              <%= link_to "View All Appointments",
+                  doctor_appointments_path %>
+
+            </div>
+
+
+            <div class="recent-table-wrapper">
+
+              <table>
+
+                <thead>
+
+                  <tr>
+                    <th>Date & Time</th>
+                    <th>Department</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                  <% @patient_appointments.limit(5).each do |appointment| %>
+
+                    <tr>
+
+                      <td>
+                        <strong>
+                          <%= appointment.appointment_date.strftime("%d %b %Y") %>
+                        </strong>
+
+                        <small>
+                          <%= appointment.appointment_time.strftime("%I:%M %p") %>
+                        </small>
+                      </td>
+
+                      <td>
+                        <%= appointment.department %>
+                      </td>
+
+                      <td>
+
+                        <span class="mini-status <%= appointment.status %>">
+                          <%= appointment.status.capitalize %>
+                        </span>
+
+                      </td>
+
+                      <td>
+                        <%= link_to "View",
+                            doctor_appointments_path,
+                            class: "view-btn" %>
+                      </td>
+
+                    </tr>
+
+                  <% end %>
+
+                </tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- RIGHT QUICK ACTIONS -->
+
+        <div class="patient-side-actions">
+
+          <h3>Quick Actions</h3>
+
+          <%= link_to doctor_appointments_path,
+              class: "quick-action" do %>
+            📅
+            <span>View Appointments</span>
+          <% end %>
+
+          <%= link_to doctor_reports_path,
+              class: "quick-action" do %>
+            📋
+            <span>View Reports</span>
+          <% end %>
+
+          <a href="#" class="quick-action">
+            💊
+            <span>Add Prescription</span>
+          </a>
+
+          <a href="#" class="quick-action">
+            🩺
+            <span>Add Medical Record</span>
+          </a>
+
+          <a href="#" class="quick-action">
+            💬
+            <span>Send Message</span>
+          </a>
+
+
+          <!-- NOTES -->
+
+          <div class="patient-notes">
+
+            <h3>Notes</h3>
+
+            <p>
+              Patient information and clinical notes will appear here.
+            </p>
+
+            <small>
+              Last updated:
+              <%= Time.current.strftime("%d %b %Y") %>
+            </small>
+
+          </div>
+
+        </div>
+
+      <% else %>
+
+        <div class="select-patient-message">
+
+          <div>👤</div>
+
+          <h2>Select a Patient</h2>
+
+          <p>
+            Select a patient from the list to view their details.
+          </p>
+
+        </div>
+
+      <% end %>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  medical_report: one
+  test_name: MyString
+  result: MyString
+  unit: MyString
+  reference_range: MyString
+  status: MyString
+
+two:
+  medical_report: two
+  test_name: MyString
+  result: MyString
+  unit: MyString
+  reference_range: MyString
+  status: MyString

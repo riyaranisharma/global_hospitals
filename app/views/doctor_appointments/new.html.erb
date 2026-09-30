@@ -1,0 +1,36 @@
+<div class="doctor-page">
+
+  <div class="doctor-page-header">
+
+    <div>
+      <h1>New Appointment</h1>
+      <p>Create a new patient appointment</p>
+    </div>
+
+    <%= link_to "← Back",
+        doctor_appointments_path,
+        class: "back-btn" %>
+
+  </div>
+
+
+  <div class="form-card">
+
+    <div class="form-card-header">
+
+      <h2>Appointment Information</h2>
+
+      <p>
+        Enter the patient's appointment details.
+      </p>
+
+    </div>
+
+
+    <%= render "form",
+        appointment: @appointment,
+        patients: @patients %>
+
+  </div>
+
+</div>

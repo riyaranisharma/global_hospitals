@@ -1,0 +1,49 @@
+<div class="login-page">
+
+  <div class="login-card">
+
+    <h1>Admin Login</h1>
+
+    <% if flash[:notice] %>
+      <p class="success-message">
+        <%= flash[:notice] %>
+      </p>
+    <% end %>
+
+    <% if flash[:alert] %>
+      <p class="error-message">
+        <%= flash[:alert] %>
+      </p>
+    <% end %>
+
+    <%= form_with url: admin_login_path,
+                  method: :post,
+                  local: true do %>
+
+      <div class="form-group">
+        <%= email_field_tag :email,
+            nil,
+            placeholder: "Admin Email",
+            required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= password_field_tag :password,
+            nil,
+            placeholder: "Password",
+            required: true %>
+      </div>
+
+      <!-- Forgot Password -->
+      <div class="forgot-password">
+        <%= link_to "Forgot Password?", admin_forgot_password_path %>
+      </div>
+
+      <%= submit_tag "Admin Login",
+          class: "login-btn" %>
+
+    <% end %>
+
+  </div>
+
+</div>

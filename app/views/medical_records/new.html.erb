@@ -1,0 +1,212 @@
+<%= stylesheet_link_tag "medical_records", "data-turbo-track": "reload" %>
+
+<div class="upload-report-page">
+
+  <div class="upload-report-card">
+
+    <div class="upload-report-header">
+      <div class="upload-icon">
+        📄
+      </div>
+
+      <div>
+        <h1>Upload Medical Report</h1>
+        <p>
+          Upload your laboratory or diagnostic report
+        </p>
+      </div>
+    </div>
+
+
+    <% if @medical_report.errors.any? %>
+      <div class="upload-errors">
+
+        <strong>
+          Please fix the following errors:
+        </strong>
+
+        <ul>
+          <% @medical_report.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+
+      </div>
+    <% end %>
+
+
+        <%= form_with model: @medical_report,
+              url: medical_records_path,
+              method: :post,
+              local: true,
+              html: { multipart: true } do |form| %>
+
+
+      <!-- FILE UPLOAD -->
+
+      <div class="file-upload-box">
+
+        <div class="file-upload-icon">
+          📎
+        </div>
+
+        <h3>Select Medical Report</h3>
+
+        <p>
+          PDF, JPG, JPEG or PNG
+        </p>
+
+        <%= form.file_field :report_file,
+            accept: ".pdf,.jpg,.jpeg,.png",
+            class: "report-file-input" %>
+
+      </div>
+
+
+      <!-- REPORT INFORMATION -->
+
+      <div class="upload-section">
+
+        <h2>Report Information</h2>
+
+        <div class="upload-grid">
+
+
+          <div class="upload-field">
+            <%= form.label :report_type, "Report Type" %>
+
+            <%= form.text_field :report_type,
+                placeholder: "Example: Blood Test" %>
+          </div>
+
+
+          <div class="upload-field">
+            <%= form.label :department, "Department" %>
+
+            <%= form.text_field :department,
+                placeholder: "Example: Cardiology" %>
+          </div>
+
+
+          <div class="upload-field">
+            <%= form.label :doctor_name, "Doctor Name" %>
+
+            <%= form.text_field :doctor_name,
+                placeholder: "Example: Rajesh Kumar" %>
+          </div>
+
+
+          <div class="upload-field">
+            <%= form.label :report_date, "Report Date" %>
+
+            <%= form.date_field :report_date %>
+          </div>
+
+
+          <div class="upload-field">
+            <%= form.label :report_code, "Report ID / Code" %>
+
+            <%= form.text_field :report_code,
+                placeholder: "Example: MR23090145" %>
+          </div>
+
+
+          <div class="upload-field">
+            <%= form.label :lab_no, "Lab No." %>
+
+            <%= form.text_field :lab_no,
+                placeholder: "Example: LAB789012" %>
+          </div>
+
+
+          <div class="upload-field">
+            <%= form.label :sample_type, "Sample Type" %>
+
+            <%= form.text_field :sample_type,
+                placeholder: "Example: Blood" %>
+          </div>
+
+
+          <div class="upload-field">
+
+            <%= form.label :fasting, "Fasting" %>
+
+            <%= form.select :fasting,
+                [
+                  ["Yes", true],
+                  ["No", false]
+                ],
+                { include_blank: "Select" } %>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- CLINICAL NOTES -->
+
+      <div class="upload-section">
+
+        <h2>Clinical Information</h2>
+
+        <div class="upload-field">
+
+          <%= form.label :clinical_notes, "Clinical Notes" %>
+
+          <%= form.text_area :clinical_notes,
+              rows: 4,
+              placeholder: "Enter clinical notes..." %>
+
+        </div>
+
+
+        <div class="upload-field">
+
+          <%= form.label :interpretation, "Interpretation" %>
+
+          <%= form.text_area :interpretation,
+              rows: 4,
+              placeholder: "Enter report interpretation..." %>
+
+        </div>
+
+
+        <div class="upload-field">
+
+          <%= form.label :recommendations, "Recommendations" %>
+
+          <%= form.text_area :recommendations,
+              rows: 4,
+              placeholder: "Enter recommendations..." %>
+
+        </div>
+
+      </div>
+
+
+      <!-- STATUS -->
+
+      <%= form.hidden_field :status,
+          value: "Completed" %>
+
+
+      <div class="upload-actions">
+
+        <%= link_to "Cancel",
+            medical_records_path,
+            class: "cancel-upload-btn" %>
+
+
+        <%= form.submit "Upload Report",
+            class: "upload-submit-btn" %>
+
+      </div>
+
+
+    <% end %>
+
+  </div>
+
+</div>

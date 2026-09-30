@@ -1,0 +1,371 @@
+<div class="doctor-dashboard">
+
+  <!-- SIDEBAR -->
+  <aside class="doctor-sidebar">
+
+    <div class="hospital-logo">
+      <div class="logo-icon">✚</div>
+      <div>
+        <strong>PARAS</strong>
+        <span>HOSPITAL</span>
+      </div>
+    </div>
+
+    <div class="doctor-profile">
+
+      <div class="doctor-avatar">
+        👨‍⚕️
+      </div>
+
+      <h3>
+        Dr. <%= @doctor.first_name %> <%= @doctor.last_name %>
+      </h3>
+
+      <p>Doctor</p>
+
+      <span class="available">
+        ● Available
+      </span>
+
+    </div>
+
+    <!-- NAVIGATION -->
+
+    <nav class="doctor-nav">
+
+      <%= link_to doctor_dashboard_path,
+          class: "nav-item active" do %>
+        <span>⌂</span>
+        Dashboard
+      <% end %>
+
+       <%= link_to doctor_appointments_path,
+          class: "nav-item" do %>
+        <span>▣</span>
+        Appointments
+        <% end %>
+
+        <%= link_to doctor_patients_path,
+         class: "nav-item" do %>
+
+           <span>👤</span>
+           <span>Patients</span>
+
+        <% end %>
+
+        <%= link_to doctor_schedules_path, class: "nav-item" do %>
+          <span>◷</span>
+          My Schedule
+        <% end %>
+       <%= link_to doctor_prescriptions_path, class: "nav-item" do %>
+  <span>▤</span>
+  Prescriptions
+<% end %>
+      <%= link_to "#", class: "nav-item" do %>
+        <span>▣</span>
+         My Report
+      <% end %>
+
+
+
+      <%= link_to "#", class: "nav-item" do %>
+        <span>💬</span>
+        Messages
+      <% end %>
+
+    </nav>
+
+    <div class="logout-area">
+
+      <%= button_to logout_path,
+          method: :delete,
+          class: "logout-btn" do %>
+
+        <span>↪</span>
+        Log Out
+
+      <% end %>
+
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN CONTENT -->
+
+  <main class="doctor-main">
+
+    <!-- TOP BAR -->
+
+    <header class="doctor-topbar">
+
+      <button class="menu-btn">
+        ☰
+      </button>
+
+      <div class="topbar-right">
+
+        <div class="notification">
+          🔔
+          <span>2</span>
+        </div>
+
+        <div class="top-avatar">
+          👨‍⚕️
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- PAGE CONTENT -->
+
+    <section class="dashboard-content">
+
+      <!-- HEADER -->
+
+      <div class="dashboard-heading">
+
+        <div>
+          <h1>
+            Welcome back, Dr.
+            <%= @doctor.first_name %> 👋
+          </h1>
+
+          <p>
+            Here's an overview of your practice.
+          </p>
+        </div>
+
+        <div class="date-card">
+          📅
+          <%= Date.current.strftime("%d %B %Y, %A") %>
+        </div>
+
+      </div>
+
+
+      <!-- STAT CARDS -->
+
+      <div class="stats-grid">
+
+        <!-- APPOINTMENTS -->
+
+        <div class="stat-card blue">
+
+          <div class="stat-icon">
+            📅
+          </div>
+
+          <div class="stat-content">
+
+            <p>Today's Appointments</p>
+
+            <h2>
+              <%= @today_appointments_count %>
+            </h2>
+
+            <%= link_to "#", class: "stat-link" do %>
+              View Schedule →
+            <% end %>
+
+          </div>
+
+        </div>
+
+
+        <!-- PATIENTS -->
+
+        <div class="stat-card green">
+
+          <div class="stat-icon">
+            👥
+          </div>
+
+          <div class="stat-content">
+
+            <p>Total Patients</p>
+
+            <h2>
+              <%= @total_patients %>
+            </h2>
+
+            <%= link_to "#", class: "stat-link" do %>
+              View Patients →
+            <% end %>
+
+          </div>
+
+        </div>
+
+
+        <!-- PRESCRIPTIONS -->
+
+        <div class="stat-card purple">
+
+          <div class="stat-icon">
+            📋
+          </div>
+
+          <div class="stat-content">
+
+            <p>Prescriptions Today</p>
+
+            <h2>
+              <%= @prescriptions_today %>
+            </h2>
+
+            <%= link_to "#", class: "stat-link" do %>
+              View All →
+            <% end %>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- LOWER SECTION -->
+
+      <div class="dashboard-grid">
+
+
+        <!-- TODAY'S SCHEDULE -->
+
+        <div class="schedule-card">
+
+          <div class="card-header">
+
+            <h2>
+              ◷ Today's Schedule
+            </h2>
+
+            <%= link_to "View All →", "#" %>
+
+          </div>
+
+
+          <div class="appointment-list">
+
+            <% if @today_appointments.any? %>
+
+              <% @today_appointments.each do |appointment| %>
+
+                <div class="appointment-row">
+
+                  <div class="appointment-time">
+
+                    <strong>
+                      <%= appointment.appointment_time.strftime("%I:%M %p") %>
+                    </strong>
+
+                    <span>
+                      30 min
+                    </span>
+
+                  </div>
+
+
+                  <div class="patient-avatar">
+                    👤
+                  </div>
+
+
+                  <div class="patient-info">
+
+                    <h4>
+                       <% if appointment.patient.present? %>
+                       <%= appointment.patient.first_name %>
+                       <%= appointment.patient.last_name %>
+                       <% elsif appointment.patient_name.present? %>
+                       <%= appointment.patient_name %>
+                      <% else %>
+                      Unknown Patient
+                      <% end %>
+                    </h4>
+
+                    <p>
+                         <%= appointment.department.presence || "Consultation" %>
+                    </p>
+
+                  </div>
+
+
+                  <div>
+
+                    <% status = appointment.status.to_s.downcase %>
+
+                    <span class="status <%= status %>">
+                      <%= appointment.status.presence || "Pending" %>
+                    </span>
+
+                  </div>
+
+                </div>
+
+              <% end %>
+
+            <% else %>
+
+              <div class="empty-schedule">
+                <div>📅</div>
+                <h3>No appointments today</h3>
+                <p>Your schedule is clear.</p>
+              </div>
+
+            <% end %>
+
+          </div>
+
+        </div>
+
+
+        <!-- QUICK ACTIONS -->
+
+        <div class="quick-card">
+
+          <div class="card-header">
+
+            <h2>Quick Actions</h2>
+
+          </div>
+
+
+          <div class="quick-grid">
+
+            <%= link_to "#", class: "quick-action blue-action" do %>
+              <span>📅</span>
+              <strong>New Appointment</strong>
+            <% end %>
+
+
+            <%= link_to "#", class: "quick-action green-action" do %>
+              <span>👤</span>
+              <strong>Add Patient</strong>
+            <% end %>
+
+
+            <%= link_to "#", class: "quick-action purple-action" do %>
+              <span>Rx</span>
+              <strong>New Prescription</strong>
+            <% end %>
+
+
+            <%= link_to "#", class: "quick-action orange-action" do %>
+              <span>📊</span>
+              <strong>View Reports</strong>
+            <% end %>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>

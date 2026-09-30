@@ -1,0 +1,135 @@
+<div class="appointment-form-page">
+
+  <div class="appointment-form-header">
+
+    <div>
+      <h1>Book Appointment</h1>
+      <p>Schedule an appointment with your preferred doctor.</p>
+    </div>
+
+    <%= link_to "← Back",
+        appointments_path,
+        class: "back-btn" %>
+
+  </div>
+
+
+  <div class="appointment-form-card">
+
+    <div class="form-card-header">
+      <h2>Appointment Information</h2>
+      <p>Select a doctor, department, date and time for your appointment.</p>
+    </div>
+
+
+    <%= form_with model: @appointment,
+                  url: appointments_path,
+                  local: true do |form| %>
+
+
+      <!-- DOCTOR -->
+
+      <div class="form-group">
+
+        <%= form.label :doctor_id, "Select Doctor" %>
+
+        <%= form.collection_select :doctor_id,
+            @doctors,
+            :id,
+            ->(doctor) {
+              "Dr. #{doctor.first_name} #{doctor.last_name}"
+            },
+            { prompt: "Select Doctor" },
+            { class: "form-control", required: true } %>
+
+      </div>
+
+
+      <!-- DEPARTMENT -->
+
+      <div class="form-group">
+
+        <%= form.label :department, "Department" %>
+
+        <%= form.select :department,
+            [
+              ["Cardiology", "Cardiology"],
+              ["Neurology", "Neurology"],
+              ["Orthopedics", "Orthopedics"],
+              ["Pediatrics", "Pediatrics"],
+              ["Dermatology", "Dermatology"],
+              ["General Medicine", "General Medicine"]
+            ],
+            { prompt: "Select Department" },
+            { class: "form-control", required: true } %>
+
+      </div>
+
+
+      <!-- DATE + TIME -->
+
+      <div class="form-row">
+
+        <div class="form-group">
+
+          <%= form.label :appointment_date,
+              "Appointment Date" %>
+
+          <%= form.date_field :appointment_date,
+              min: Date.current,
+              class: "form-control",
+              required: true %>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <%= form.label :appointment_time,
+              "Appointment Time" %>
+
+          <%= form.time_field :appointment_time,
+              class: "form-control",
+              required: true %>
+
+        </div>
+
+      </div>
+
+
+      <!-- APPOINTMENT STATUS -->
+
+      <div class="form-group">
+
+        <label>Appointment Status</label>
+
+        <div class="pending-status">
+          <span class="status-dot"></span>
+          Pending
+        </div>
+
+        <small class="form-help">
+          Your appointment will remain pending until the doctor confirms it.
+        </small>
+
+      </div>
+
+
+      <!-- BUTTONS -->
+
+      <div class="form-actions">
+
+        <%= link_to "Cancel",
+            appointments_path,
+            class: "cancel-btn" %>
+
+        <%= form.submit "Book Appointment",
+            class: "create-btn" %>
+
+      </div>
+
+    <% end %>
+
+  </div>
+
+</div>

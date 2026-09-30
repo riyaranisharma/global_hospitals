@@ -1,0 +1,1245 @@
+/* =========================================================
+   PARAS HOSPITAL - ADMIN DASHBOARD
+   ========================================================= */
+
+/* ---------- RESET ---------- */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f5f8fc;
+  color: #172b4d;
+}
+
+
+/* =========================================================
+   MAIN LAYOUT
+   ========================================================= */
+
+.admin-layout {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  background: #f5f8fc;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.admin-sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+  width: 215px;
+  height: 100vh;
+
+  background: #174a7c;
+  color: #fff;
+
+  display: flex;
+  flex-direction: column;
+
+  z-index: 1000;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+
+/* =========================================================
+   HOSPITAL LOGO
+   ========================================================= */
+
+.hospital-logo {
+  height: 105px;
+  width: 100%;
+
+  padding: 18px 15px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.logo-icon {
+  width: 34px;
+  height: 34px;
+
+  flex-shrink: 0;
+
+  border-radius: 7px;
+
+  background: #fff;
+  color: #1976d2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.hospital-logo h2 {
+  color: #fff;
+
+  font-size: 20px;
+  font-weight: 800;
+
+  line-height: 1.1;
+
+  white-space: nowrap;
+}
+
+.hospital-logo span {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #bcd6ec;
+
+  font-size: 8px;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   SIDEBAR NAVIGATION
+   ========================================================= */
+
+.admin-nav {
+  flex: 1;
+
+  padding: 18px 12px;
+}
+
+.admin-nav a,
+.admin-nav button {
+  width: 100%;
+  min-height: 38px;
+
+  margin-bottom: 5px;
+
+  padding: 0 12px;
+
+  border: 0;
+
+  border-radius: 6px;
+
+  background: transparent;
+
+  color: #e5f0fa;
+
+  text-decoration: none;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.nav-icon {
+  width: 20px;
+  min-width: 20px;
+
+  text-align: center;
+
+  font-size: 14px;
+
+  color: #d9eafa;
+}
+
+.nav-item > span:nth-child(2) {
+  flex: 1;
+}
+
+.nav-arrow {
+  font-size: 17px;
+
+  color: #b8d3e9;
+
+  opacity: 0.7;
+}
+
+
+/* ---------- NAV HOVER ---------- */
+
+.admin-nav a:hover,
+.admin-nav button:hover {
+  background: rgba(255,255,255,0.10);
+
+  color: #fff;
+
+  transform: translateX(2px);
+}
+
+.admin-nav a:hover .nav-icon,
+.admin-nav button:hover .nav-icon {
+  color: #fff;
+}
+
+
+/* ---------- ACTIVE NAV ---------- */
+
+.admin-nav .active {
+  background: #287ddd;
+
+  color: #fff;
+
+  font-weight: 600;
+
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+
+.admin-nav .active .nav-icon {
+  color: #fff;
+}
+
+.admin-nav .active .nav-arrow {
+  color: #fff;
+}
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+.logout-btn {
+  margin-top: 12px !important;
+
+  border-top: 1px solid rgba(255,255,255,0.15) !important;
+
+  border-radius: 0 !important;
+
+  padding-top: 18px !important;
+
+  color: #dceafa !important;
+}
+
+
+/* =========================================================
+   SIDEBAR FOOTER
+   ========================================================= */
+
+.sidebar-footer {
+  padding: 14px 12px 20px;
+
+  border-top: 1px solid rgba(255,255,255,0.15);
+
+  color: #dceafa;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+}
+
+.sidebar-footer strong {
+  display: block;
+
+  color: #fff;
+
+  font-size: 11px;
+}
+
+.sidebar-footer small {
+  color: #bcd5e9;
+
+  font-size: 9px;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.admin-main {
+  width: calc(100% - 215px);
+
+  min-height: 100vh;
+
+  margin-left: 215px;
+
+  background: #f5f8fc;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.admin-header {
+  width: 100%;
+  height: 55px;
+
+  padding: 0 25px;
+
+  background: #fff;
+
+  border-bottom: 1px solid #e4eaf0;
+
+  display: flex;
+  align-items: center;
+
+  position: sticky;
+  top: 0;
+
+  z-index: 100;
+}
+
+.menu-btn {
+  width: 35px;
+  height: 35px;
+
+  border: 0;
+  background: transparent;
+
+  color: #17324d;
+
+  font-size: 21px;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   SEARCH BOX
+   ========================================================= */
+
+.search-box {
+  width: 260px;
+
+  margin-left: auto;
+  margin-right: 25px;
+
+  position: relative;
+}
+
+.search-box input {
+  width: 100%;
+  height: 32px;
+
+  padding: 0 30px 0 10px;
+
+  border: 1px solid #cbd5e1;
+
+  border-radius: 4px;
+
+  outline: none;
+
+  font-size: 11px;
+
+  color: #334155;
+
+  background: #fff;
+}
+
+.search-box input:focus {
+  border-color: #1976d2;
+
+  box-shadow: 0 0 0 2px rgba(25,118,210,0.08);
+}
+
+.search-box span {
+  position: absolute;
+
+  right: 9px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  color: #64748b;
+
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   HEADER RIGHT
+   ========================================================= */
+
+.header-right {
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+}
+
+
+/* =========================================================
+   NOTIFICATION
+   ========================================================= */
+
+.notification {
+  width: 38px;
+  height: 38px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+
+  font-size: 17px;
+
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.notification span {
+  position: absolute;
+
+  top: -3px;
+  right: -3px;
+
+  width: 16px;
+  height: 16px;
+
+  border-radius: 50%;
+
+  background: #ef4444;
+
+  color: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 8px;
+  font-weight: bold;
+}
+
+
+/* =========================================================
+   ADMIN PROFILE
+   ========================================================= */
+
+.admin-profile {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  color: #172b4d;
+
+  white-space: nowrap;
+}
+
+.profile-avatar {
+  width: 37px;
+  height: 37px;
+
+  border-radius: 50%;
+
+  background: #e6f4fb;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 17px;
+}
+
+.admin-profile strong {
+  font-size: 12px;
+
+  color: #172b4d;
+}
+
+.admin-profile small {
+  display: block;
+
+  margin-top: 2px;
+
+  color: #64748b;
+
+  font-size: 9px;
+}
+
+.admin-profile > span {
+  margin-left: 2px;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   DASHBOARD CONTENT
+   ========================================================= */
+
+.dashboard-content {
+  width: 100%;
+
+  max-width: 1320px;
+
+  margin: 0 auto;
+
+  padding: 28px 30px 40px;
+}
+
+
+/* =========================================================
+   DASHBOARD HEADING
+   ========================================================= */
+
+.dashboard-heading {
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+}
+
+.dashboard-heading h1 {
+  margin-bottom: 6px;
+
+  font-size: 25px;
+
+  font-weight: 700;
+
+  color: #172b4d;
+}
+
+.dashboard-heading p {
+  color: #718096;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   DATE
+   ========================================================= */
+
+.dashboard-date {
+  padding: 10px 15px;
+
+  min-width: 125px;
+
+  border: 1px solid #e1e8ef;
+
+  border-radius: 7px;
+
+  background: #fff;
+
+  color: #334155;
+
+  font-size: 11px;
+
+  text-align: center;
+
+  box-shadow: 0 2px 6px rgba(15,23,42,0.03);
+}
+
+
+/* =========================================================
+   STATISTICS GRID
+   ========================================================= */
+
+.stats-grid {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 18px;
+
+  margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   STAT CARD
+   ========================================================= */
+
+.stat-card {
+  min-height: 135px;
+
+  padding: 20px;
+
+  border-radius: 11px;
+
+  background: #fff;
+
+  border: 1px solid #e1e8ef;
+
+  text-decoration: none;
+
+  display: flex;
+  align-items: flex-start;
+
+  gap: 14px;
+
+  box-shadow: 0 3px 10px rgba(15,23,42,0.04);
+
+  transition: all 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 7px 18px rgba(15,23,42,0.08);
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+
+  min-width: 48px;
+
+  border-radius: 10px;
+
+  background: #e8f4fb;
+
+  color: #1976d2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 19px;
+
+  font-weight: bold;
+}
+
+.stat-card span {
+  display: block;
+
+  margin: 2px 0 5px;
+
+  color: #172b4d;
+
+  font-size: 13px;
+
+  font-weight: 500;
+}
+
+.stat-card h2 {
+  margin: 0;
+
+  color: #008c8c;
+
+  font-size: 25px;
+
+  line-height: 1.1;
+}
+
+.stat-card small {
+  display: block;
+
+  margin-top: 15px;
+
+  color: #1769d1;
+
+  font-size: 10px;
+}
+
+
+/* ---------- CARD COLORS ---------- */
+
+.doctors-card .stat-icon {
+  background: #e8f4fb;
+  color: #1976d2;
+}
+
+.patients-card .stat-icon {
+  background: #e2f6ef;
+  color: #168c67;
+}
+
+.appointments-card .stat-icon {
+  background: #f0e8fb;
+  color: #8b5cf6;
+}
+
+.records-card .stat-icon {
+  background: #eaf5fb;
+  color: #1976d2;
+}
+
+.lab-card .stat-icon {
+  background: #e3f7f3;
+  color: #168c78;
+}
+
+.billing-card .stat-icon {
+  background: #f0e9fa;
+  color: #8b5cf6;
+}
+
+
+/* =========================================================
+   CHART + ACTIVITY
+   ========================================================= */
+
+.dashboard-grid {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns: 2fr 1fr;
+
+  gap: 18px;
+
+  margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   COMMON DASHBOARD CARD
+   ========================================================= */
+
+.dashboard-card {
+  background: #fff;
+
+  border: 1px solid #e1e8ef;
+
+  border-radius: 10px;
+
+  overflow: hidden;
+
+  box-shadow: 0 3px 10px rgba(15,23,42,0.04);
+}
+
+
+/* =========================================================
+   CARD HEADER
+   ========================================================= */
+
+.card-header {
+  min-height: 50px;
+
+  padding: 0 16px;
+
+  border-bottom: 1px solid #e7edf3;
+
+  display: flex;
+  align-items: center;
+
+  justify-content: space-between;
+}
+
+.card-header h3 {
+  color: #172b4d;
+
+  font-size: 14px;
+
+  font-weight: 700;
+}
+
+.card-header a {
+  color: #1976d2;
+
+  font-size: 9px;
+
+  text-decoration: none;
+}
+
+.card-header a:hover {
+  text-decoration: underline;
+}
+
+.card-header select {
+  height: 28px;
+
+  padding: 0 8px;
+
+  border: 1px solid #cbd5e1;
+
+  border-radius: 4px;
+
+  background: #fff;
+
+  color: #334155;
+
+  font-size: 10px;
+
+  outline: none;
+}
+
+
+/* =========================================================
+   PATIENT CHART
+   ========================================================= */
+
+.chart {
+  height: 285px;
+
+  display: flex;
+
+  padding: 15px 15px 10px;
+}
+
+.chart-y {
+  width: 30px;
+
+  padding: 5px 5px 28px 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  color: #64748b;
+
+  font-size: 9px;
+
+  text-align: right;
+}
+
+.chart-area {
+  flex: 1;
+
+  position: relative;
+
+  height: 100%;
+
+  padding-bottom: 30px;
+}
+
+.grid-line {
+  width: 100%;
+  height: 1px;
+
+  background: #edf2f7;
+
+  position: absolute;
+
+  left: 0;
+}
+
+.grid-line:nth-child(1) {
+  top: 5%;
+}
+
+.grid-line:nth-child(2) {
+  top: 22%;
+}
+
+.grid-line:nth-child(3) {
+  top: 40%;
+}
+
+.grid-line:nth-child(4) {
+  top: 60%;
+}
+
+.grid-line:nth-child(5) {
+  top: 80%;
+}
+
+.chart-area svg {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: calc(100% - 30px);
+
+  overflow: visible;
+}
+
+.chart-area svg circle {
+  fill: #111;
+}
+
+.chart-labels {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  color: #64748b;
+
+  font-size: 9px;
+}
+
+
+/* =========================================================
+   RECENT ACTIVITY
+   ========================================================= */
+
+.activity-list {
+  width: 100%;
+}
+
+.activity-item {
+  min-height: 58px;
+
+  padding: 10px 14px;
+
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 9px;
+
+  border-bottom: 1px solid #edf2f7;
+}
+
+.activity-item:last-child {
+  border-bottom: none;
+}
+
+.activity-icon {
+  width: 30px;
+  height: 30px;
+
+  min-width: 30px;
+
+  border-radius: 50%;
+
+  background: #edf6fd;
+
+  color: #1976d2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 12px;
+}
+
+.activity-item > div:nth-child(2) {
+  flex: 1;
+
+  min-width: 0;
+}
+
+.activity-item strong {
+  display: block;
+
+  color: #172b4d;
+
+  font-size: 11px;
+
+  margin-bottom: 2px;
+}
+
+.activity-item p {
+  color: #64748b;
+
+  font-size: 10px;
+}
+
+.activity-item small {
+  white-space: nowrap;
+
+  color: #94a3b8;
+
+  font-size: 9px;
+}
+
+
+/* =========================================================
+   RECENT DOCTORS
+   ========================================================= */
+
+.recent-doctors {
+  width: 100%;
+
+  margin-top: 18px;
+}
+
+.view-all-btn {
+  color: #1976d2;
+
+  text-decoration: none;
+
+  font-size: 10px;
+}
+
+.table-wrapper {
+  width: 100%;
+
+  overflow-x: auto;
+}
+
+.recent-doctors table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  font-size: 11px;
+}
+
+.recent-doctors thead {
+  background: #f8fafc;
+}
+
+.recent-doctors th {
+  padding: 12px 14px;
+
+  border-bottom: 1px solid #e5ebf1;
+
+  color: #64748b;
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  text-align: left;
+
+  white-space: nowrap;
+}
+
+.recent-doctors td {
+  padding: 13px 14px;
+
+  border-bottom: 1px solid #edf2f7;
+
+  color: #475569;
+
+  white-space: nowrap;
+}
+
+.recent-doctors tbody tr:hover {
+  background: #f8fbff;
+}
+
+.recent-doctors td strong {
+  color: #172b4d;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.status {
+  display: inline-flex;
+
+  align-items: center;
+
+  padding: 4px 9px;
+
+  border-radius: 20px;
+
+  font-size: 9px;
+
+  font-weight: 600;
+}
+
+.active-status {
+  background: #e4f7ed;
+
+  color: #16834d;
+}
+
+
+/* =========================================================
+   VIEW LINK
+   ========================================================= */
+
+.view-link {
+  color: #1976d2;
+
+  text-decoration: none;
+
+  font-size: 10px;
+
+  font-weight: 600;
+}
+
+.view-link:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.empty-state {
+  padding: 30px !important;
+
+  text-align: center !important;
+
+  color: #94a3b8 !important;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+.admin-sidebar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.admin-sidebar::-webkit-scrollbar-track {
+  background: #174a7c;
+}
+
+.admin-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.25);
+
+  border-radius: 10px;
+}
+
+
+/* =========================================================
+   RESPONSIVE - TABLET
+   ========================================================= */
+
+@media (max-width: 1200px) {
+
+  .dashboard-content {
+    padding: 25px 22px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  .admin-sidebar {
+    width: 215px;
+
+    transform: translateX(-100%);
+
+    transition: transform 0.3s ease;
+  }
+
+  .admin-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .admin-main {
+    width: 100%;
+
+    margin-left: 0;
+  }
+
+  .admin-header {
+    padding: 0 15px;
+  }
+
+  .search-box {
+    display: none;
+  }
+
+  .admin-profile > div:not(.profile-avatar) {
+    display: none;
+  }
+
+  .dashboard-content {
+    padding: 20px 15px 30px;
+  }
+
+  .dashboard-heading {
+    flex-direction: column;
+
+    gap: 12px;
+  }
+
+  .dashboard-heading h1 {
+    font-size: 21px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+
+    gap: 14px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+  .dashboard-content {
+    padding: 15px 10px;
+  }
+
+  .stat-card {
+    min-height: 120px;
+
+    padding: 16px;
+  }
+
+  .stat-icon {
+    width: 43px;
+    height: 43px;
+
+    min-width: 43px;
+  }
+
+  .dashboard-heading h1 {
+    font-size: 19px;
+  }
+
+  .chart {
+    height: 240px;
+
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .activity-item {
+    padding: 10px;
+  }
+}
